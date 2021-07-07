@@ -81,7 +81,7 @@ def check(lines1: list[Line], lines2: list[Line]):
     return True
 
 out = ".data\nR{}: .space 160\n".format(Parser.REC_COUNT)
-for line in lines:
+for line_idx, line in enumerate(lines):
     print("\033[33m[Pending]\033[0m\t" + line.raw)
     print("\033[1A", end='')
     if line.op and line.op not in ['jz', 'jnz']:
@@ -91,7 +91,7 @@ for line in lines:
             res_lines = list(map(Line, res.split('\n')))
             if check([line], res_lines):
                 out += res + '\n'
-                print("\033[32m[Obfuscated]\t\033[31m" + line.raw + "\033[0m")
+                print("\033[32m[ {}/{} ]\t\033[31m".format(line_idx+1, len(lines)) + line.raw + "\033[0m")
                 for l in res_lines:
                     print("\t\033[32m\t" + l.raw + "\033[0m")
                 done = True
@@ -99,7 +99,7 @@ for line in lines:
         if done:
             continue
     out += line.raw + '\n'
-    print("\033[32m[Skiped] \033[0m\t" + line.raw)
+    print("\033[32m[ {}/{} ] \033[0m\t".format(line_idx+1, len(lines)) + line.raw)
 
 with open(args.o, 'w', encoding='utf-8') as f:
     f.write(out)
