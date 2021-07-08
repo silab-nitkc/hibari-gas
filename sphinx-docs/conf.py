@@ -12,7 +12,7 @@
 #
 import os
 import sys
-sys.path.insert(0, '/home/lobmto/hachi-obfuscator')
+sys.path.insert(0, '../')
 
 
 # -- Project information -----------------------------------------------------
