@@ -37,6 +37,24 @@ class Simulator(Transformer):
         temp = self.op_dict.all[tree[2]].val % self.suffix_to_int(tree[0])
         self.zf = 1 if temp == 0 else 0
         self.pc += 1
+    
+    def xor(self, tree):
+        self.op_dict.all[tree[2]].val ^= self.op_dict.all[tree[1]].val
+        temp = self.op_dict.all[tree[2]].val % self.suffix_to_int(tree[0])
+        self.zf = 1 if temp == 0 else 0
+        self.pc += 1
+    
+    def and_(self, tree):
+        self.op_dict.all[tree[2]].val &= self.op_dict.all[tree[1]].val
+        temp = self.op_dict.all[tree[2]].val % self.suffix_to_int(tree[0])
+        self.zf = 1 if temp == 0 else 0
+        self.pc += 1
+    
+    def or_(self, tree):
+        self.op_dict.all[tree[2]].val |= self.op_dict.all[tree[1]].val
+        temp = self.op_dict.all[tree[2]].val % self.suffix_to_int(tree[0])
+        self.zf = 1 if temp == 0 else 0
+        self.pc += 1
 
     def mov(self, tree):
         self.op_dict.all[tree[2]].val = self.op_dict.all[tree[1]].val

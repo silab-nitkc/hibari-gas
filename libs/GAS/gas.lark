@@ -4,16 +4,24 @@ exp			: label
 			| arr_label
 			| add
 			| sub
+			| xor
+			| and_
+			| or_
 			| mov
 			| jz
+			| jnz
 
 arr_label	: label ".space 160"
 label		: /[0-9a-zA-Z_]+/ ":"
 
 add			: "add" suffix operand "," operand
 sub			: "sub" suffix operand "," operand
+xor			: "xor" suffix operand "," operand
+and_		: "and" suffix operand "," operand
+or_			: "or" suffix operand "," operand
 mov			: "mov" suffix operand "," operand
 jz			: "jz"  /[0-9a-zA-Z_]+/
+jnz			: "jnz"  /[0-9a-zA-Z_]+/
 
 suffix		: /q/ 
 			| /l/

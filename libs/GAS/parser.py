@@ -29,6 +29,15 @@ class Parser(Transformer):
     def sub(self, tree):
         self.line.op = 'sub'
     
+    def xor(self, tree):
+        self.line.op = 'xor'
+    
+    def and_(self, tree):
+        self.line.op = 'and'
+    
+    def or_(self, tree):
+        self.line.op = 'or'
+    
     def mov(self, tree):
         self.line.op = 'mov'
     

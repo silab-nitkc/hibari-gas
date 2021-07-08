@@ -3,8 +3,7 @@ from ..GAS.parser import Parser
 from ..static import *
 
 class TypeA:
-    """
-    add, sub等の一般的な演算用の親クラス
+    """Superclass of Add and Sub.
     """
     def __init__(self, model):
         self.is_reg = model.is_reg
@@ -98,6 +97,54 @@ class Sub(TypeA):
 
         return const
 
+class Xor(TypeA):
+    ID = -1
+    def __init__(self, model):
+        super().__init__(model)
+    
+    def get_op_const(self, current, next):
+        const = []
+        dst, src, sii, imm = self.dst, self.src, self.src_is_imm, self.imm
+
+        const += [z3.If(sii == 0, 
+                    next.val[dst] == current.val[dst] ^ current.val[src], 
+                    next.val[dst] == current.val[dst] ^ imm
+        )]
+
+        return const
+
+class And(TypeA):
+    ID = -1
+    def __init__(self, model):
+        super().__init__(model)
+    
+    def get_op_const(self, current, next):
+        const = []
+        dst, src, sii, imm = self.dst, self.src, self.src_is_imm, self.imm
+
+        const += [z3.If(sii == 0, 
+                    next.val[dst] == current.val[dst] & current.val[src], 
+                    next.val[dst] == current.val[dst] & imm
+        )]
+
+        return const
+
+class Or(TypeA):
+    ID = -1
+    def __init__(self, model):
+        super().__init__(model)
+    
+    def get_op_const(self, current, next):
+        const = []
+        dst, src, sii, imm = self.dst, self.src, self.src_is_imm, self.imm
+
+        const += [z3.If(sii == 0, 
+                    next.val[dst] == current.val[dst] | current.val[src], 
+                    next.val[dst] == current.val[dst] | imm
+        )]
+
+        return const
+
 class Mov:
     ID = -1
     def __init__(self, model):
@@ -172,8 +219,7 @@ class Mov:
             pass
 
 class TypeB:
-    """
-        ジャンプ命令の親クラス
+    """Superclass of JZ and JNZ.
     """
     label_count = 0
     def __init__(self, model):
@@ -269,8 +315,11 @@ class Stop:
 all = {
     'add': Add,
     'sub': Sub,
+    'xor': Xor,
+    'and': And,
+    'or' : Or,
     'mov': Mov,
-    'jz' : JZ,
+    # 'jz' : JZ,
     # 'jnz': JNZ,
     'stop': Stop,
 }
@@ -284,6 +333,3 @@ for i, op in enumerate(all.values()):
 # 命令の名前を設定
 for name in all:
     all[name].name = name
-
-# import code 
-# code.InteractiveConsole(globals()).interact()
