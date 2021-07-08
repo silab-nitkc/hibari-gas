@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>libs.GAS.parser &#8212; hachi-obfuscator  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for libs.GAS.parser</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">lark</span> <span class="kn">import</span> <span class="n">Transformer</span>
+<span class="kn">from</span> <span class="nn">.operand</span> <span class="kn">import</span> <span class="n">Operand</span>
+
+<div class="viewcode-block" id="Parser"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser">[docs]</a><span class="k">class</span> <span class="nc">Parser</span><span class="p">(</span><span class="n">Transformer</span><span class="p">):</span>
+    <span class="c1"># recursive execution count</span>
+    <span class="n">REC_COUNT</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">line</span>
+
+<div class="viewcode-block" id="Parser.suffix_to_int"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.suffix_to_int">[docs]</a>    <span class="k">def</span> <span class="nf">suffix_to_int</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">suffix</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;q&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="o">**</span><span class="mi">64</span><span class="p">,</span>
+            <span class="s2">&quot;l&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="o">**</span><span class="mi">32</span><span class="p">,</span>
+        <span class="p">}[</span><span class="n">suffix</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Parser.exp"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.exp">[docs]</a>    <span class="k">def</span> <span class="nf">exp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Parser.arr_label"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.arr_label">[docs]</a>    <span class="k">def</span> <span class="nf">arr_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="n">Parser</span><span class="o">.</span><span class="n">REC_COUNT</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="Parser.label"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Parser.add"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="s1">&#39;add&#39;</span></div>
+
+<div class="viewcode-block" id="Parser.sub"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.sub">[docs]</a>    <span class="k">def</span> <span class="nf">sub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="s1">&#39;sub&#39;</span></div>
+    
+<div class="viewcode-block" id="Parser.mov"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.mov">[docs]</a>    <span class="k">def</span> <span class="nf">mov</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="s1">&#39;mov&#39;</span></div>
+    
+<div class="viewcode-block" id="Parser.jz"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.jz">[docs]</a>    <span class="k">def</span> <span class="nf">jz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="s1">&#39;jz&#39;</span></div>
+    
+<div class="viewcode-block" id="Parser.jnz"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.jnz">[docs]</a>    <span class="k">def</span> <span class="nf">jnz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="s1">&#39;jnz&#39;</span></div>
+
+<div class="viewcode-block" id="Parser.suffix"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.suffix">[docs]</a>    <span class="k">def</span> <span class="nf">suffix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">bits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">suffix_to_int</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">suffix</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Parser.operand"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.operand">[docs]</a>    <span class="k">def</span> <span class="nf">operand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Parser.x64register"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.x64register">[docs]</a>    <span class="k">def</span> <span class="nf">x64register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">operands</span> <span class="o">+=</span> <span class="p">[</span><span class="n">Operand</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">is_reg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bits</span><span class="o">=</span><span class="mi">64</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Parser.x32register"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.x32register">[docs]</a>    <span class="k">def</span> <span class="nf">x32register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">operands</span> <span class="o">+=</span> <span class="p">[</span><span class="n">Operand</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">is_reg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bits</span><span class="o">=</span><span class="mi">32</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Parser.name"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">operands</span> <span class="o">+=</span> <span class="p">[</span><span class="n">Operand</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]))]</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+    
+<div class="viewcode-block" id="Parser.dummy"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.dummy">[docs]</a>    <span class="k">def</span> <span class="nf">dummy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="n">is_dummy</span> <span class="o">=</span> <span class="s2">&quot;R</span><span class="si">{}</span><span class="s2">+&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">REC_COUNT</span><span class="p">)</span> <span class="ow">in</span> <span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">operands</span> <span class="o">+=</span> <span class="p">[</span><span class="n">Operand</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">is_dummy</span><span class="o">=</span><span class="n">is_dummy</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Parser.immidiate"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.parser.Parser.immidiate">[docs]</a>    <span class="k">def</span> <span class="nf">immidiate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">operands</span> <span class="o">+=</span> <span class="p">[</span><span class="n">Operand</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                                       <span class="n">is_imm</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]))]</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">hachi-obfuscator</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../libs.html">libs package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../obfuscator.html">obfuscator module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
