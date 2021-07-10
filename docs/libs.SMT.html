@@ -102,6 +102,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="libs.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libs.html#module-libs.settings">libs.settings module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="libs.html#module-libs.static">libs.static module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="libs.html#module-libs">Module contents</a></li>
 </ul>
@@ -273,6 +274,27 @@
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="libs.SMT.operators.And">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">libs.SMT.operators.</span></span><span class="sig-name descname"><span class="pre">And</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/SMT/operators.html#And"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.SMT.operators.And" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#libs.SMT.operators.TypeA" title="libs.SMT.operators.TypeA"><code class="xref py py-class docutils literal notranslate"><span class="pre">libs.SMT.operators.TypeA</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libs.SMT.operators.And.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"> <span class="pre">=</span> <span class="pre">3</span></em><a class="headerlink" href="#libs.SMT.operators.And.ID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libs.SMT.operators.And.get_op_const">
+<span class="sig-name descname"><span class="pre">get_op_const</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">next</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/SMT/operators.html#And.get_op_const"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.SMT.operators.And.get_op_const" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libs.SMT.operators.And.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'and'</span></em><a class="headerlink" href="#libs.SMT.operators.And.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="libs.SMT.operators.JNZ">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">libs.SMT.operators.</span></span><span class="sig-name descname"><span class="pre">JNZ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/SMT/operators.html#JNZ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.SMT.operators.JNZ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#libs.SMT.operators.TypeB" title="libs.SMT.operators.TypeB"><code class="xref py py-class docutils literal notranslate"><span class="pre">libs.SMT.operators.TypeB</span></code></a></p>
@@ -294,17 +316,12 @@
 <dd><p>Bases: <a class="reference internal" href="#libs.SMT.operators.TypeB" title="libs.SMT.operators.TypeB"><code class="xref py py-class docutils literal notranslate"><span class="pre">libs.SMT.operators.TypeB</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="libs.SMT.operators.JZ.ID">
-<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"> <span class="pre">=</span> <span class="pre">3</span></em><a class="headerlink" href="#libs.SMT.operators.JZ.ID" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"> <span class="pre">=</span> <span class="pre">-1</span></em><a class="headerlink" href="#libs.SMT.operators.JZ.ID" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libs.SMT.operators.JZ.get_op_const">
 <span class="sig-name descname"><span class="pre">get_op_const</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">next</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/SMT/operators.html#JZ.get_op_const"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.SMT.operators.JZ.get_op_const" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libs.SMT.operators.JZ.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'jz'</span></em><a class="headerlink" href="#libs.SMT.operators.JZ.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -315,7 +332,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="libs.SMT.operators.Mov.ID">
-<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#libs.SMT.operators.Mov.ID" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"> <span class="pre">=</span> <span class="pre">5</span></em><a class="headerlink" href="#libs.SMT.operators.Mov.ID" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -346,6 +363,27 @@
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="libs.SMT.operators.Or">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">libs.SMT.operators.</span></span><span class="sig-name descname"><span class="pre">Or</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/SMT/operators.html#Or"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.SMT.operators.Or" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#libs.SMT.operators.TypeA" title="libs.SMT.operators.TypeA"><code class="xref py py-class docutils literal notranslate"><span class="pre">libs.SMT.operators.TypeA</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libs.SMT.operators.Or.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"> <span class="pre">=</span> <span class="pre">4</span></em><a class="headerlink" href="#libs.SMT.operators.Or.ID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libs.SMT.operators.Or.get_op_const">
+<span class="sig-name descname"><span class="pre">get_op_const</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">next</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/SMT/operators.html#Or.get_op_const"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.SMT.operators.Or.get_op_const" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libs.SMT.operators.Or.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'or'</span></em><a class="headerlink" href="#libs.SMT.operators.Or.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="libs.SMT.operators.Stop">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">libs.SMT.operators.</span></span><span class="sig-name descname"><span class="pre">Stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/SMT/operators.html#Stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.SMT.operators.Stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -353,7 +391,7 @@
 この命令に到達したらプログラムを終了させる</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="libs.SMT.operators.Stop.ID">
-<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"> <span class="pre">=</span> <span class="pre">4</span></em><a class="headerlink" href="#libs.SMT.operators.Stop.ID" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"> <span class="pre">=</span> <span class="pre">6</span></em><a class="headerlink" href="#libs.SMT.operators.Stop.ID" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -398,7 +436,7 @@
 <dt class="sig sig-object py" id="libs.SMT.operators.TypeA">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">libs.SMT.operators.</span></span><span class="sig-name descname"><span class="pre">TypeA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/SMT/operators.html#TypeA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.SMT.operators.TypeA" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>add, sub等の一般的な演算用の親クラス</p>
+<p>Superclass of Add and Sub.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="libs.SMT.operators.TypeA.eval_as_GAS">
 <span class="sig-name descname"><span class="pre">eval_as_GAS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gas_lines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/SMT/operators.html#TypeA.eval_as_GAS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.SMT.operators.TypeA.eval_as_GAS" title="Permalink to this definition">¶</a></dt>
@@ -420,7 +458,7 @@
 <dt class="sig sig-object py" id="libs.SMT.operators.TypeB">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">libs.SMT.operators.</span></span><span class="sig-name descname"><span class="pre">TypeB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/SMT/operators.html#TypeB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.SMT.operators.TypeB" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>ジャンプ命令の親クラス</p>
+<p>Superclass of JZ and JNZ.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="libs.SMT.operators.TypeB.eval_as_GAS">
 <span class="sig-name descname"><span class="pre">eval_as_GAS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gas_lines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/SMT/operators.html#TypeB.eval_as_GAS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.SMT.operators.TypeB.eval_as_GAS" title="Permalink to this definition">¶</a></dt>
@@ -439,6 +477,27 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="libs.SMT.operators.TypeB.label_count">
 <span class="sig-name descname"><span class="pre">label_count</span></span><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#libs.SMT.operators.TypeB.label_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="libs.SMT.operators.Xor">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">libs.SMT.operators.</span></span><span class="sig-name descname"><span class="pre">Xor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/SMT/operators.html#Xor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.SMT.operators.Xor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#libs.SMT.operators.TypeA" title="libs.SMT.operators.TypeA"><code class="xref py py-class docutils literal notranslate"><span class="pre">libs.SMT.operators.TypeA</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libs.SMT.operators.Xor.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#libs.SMT.operators.Xor.ID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libs.SMT.operators.Xor.get_op_const">
+<span class="sig-name descname"><span class="pre">get_op_const</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">next</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/SMT/operators.html#Xor.get_op_const"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.SMT.operators.Xor.get_op_const" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libs.SMT.operators.Xor.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'xor'</span></em><a class="headerlink" href="#libs.SMT.operators.Xor.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

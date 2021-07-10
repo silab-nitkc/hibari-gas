@@ -27,8 +27,6 @@ class OperandDict:
         for key in self.all:
             if key not in op_dict.all:
                 continue
-            if self.all[key].is_dummy:
-                break
             if self.all[key].val != op_dict.all[key].val:
                 return False
         return True
@@ -36,6 +34,29 @@ class OperandDict:
     def add(self, op: Operand) -> None:
         if op.name not in self.all:
             self.all[op.name] = op
+        
+    def ignore_dummies(self):
+        """難読化によって自動生成された変数を除いたOperandDictを返す．
+        """
+        res = OperandDict()
+        for op in self.all.values():
+            if op.is_dummy:
+                continue
+            res.add(op)
+        return res
+    
+    def ignore_imm(self):
+        """即値を除いたOperandDictを返す．
+        """
+        res = OperandDict()
+        for op in self.all.values():
+            if op.is_imm:
+                continue
+            res.add(op)
+        return res
+    
+    def get_values(self):
+        return [op.val for op in self.all.values()]
 
     @staticmethod
     def extend(op1, op2) -> None:

@@ -1,30 +1,21 @@
-libs package
-============
-
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   libs.GAS
-   libs.SMT
+libs.SMT package
+================
 
 Submodules
 ----------
 
-libs.settings module
+libs.SMT.core module
 --------------------
 
-.. automodule:: libs.settings
+.. automodule:: libs.SMT.core
    :members:
    :undoc-members:
    :show-inheritance:
 
-libs.static module
-------------------
+libs.SMT.operators module
+-------------------------
 
-.. automodule:: libs.static
+.. automodule:: libs.SMT.operators
    :members:
    :undoc-members:
    :show-inheritance:
@@ -32,7 +23,7 @@ libs.static module
 Module contents
 ---------------
 
-.. automodule:: libs
+.. automodule:: libs.SMT
    :members:
    :undoc-members:
    :show-inheritance:
