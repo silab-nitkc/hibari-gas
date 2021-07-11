@@ -93,6 +93,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="libs.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">libs.GAS package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-libs.GAS.builder">libs.GAS.builder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-libs.GAS.line">libs.GAS.line module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-libs.GAS.operand">libs.GAS.operand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-libs.GAS.parser">libs.GAS.parser module</a></li>
@@ -104,6 +105,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="libs.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libs.html#module-libs.color">libs.color module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="libs.html#module-libs.settings">libs.settings module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="libs.html#module-libs.static">libs.static module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="libs.html#module-libs">Module contents</a></li>
@@ -184,6 +186,29 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-libs.GAS.builder">
+<span id="libs-gas-builder-module"></span><h2>libs.GAS.builder module<a class="headerlink" href="#module-libs.GAS.builder" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="libs.GAS.builder.insert_data">
+<span class="sig-prename descclassname"><span class="pre">libs.GAS.builder.</span></span><span class="sig-name descname"><span class="pre">insert_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">list</span><a class="reference internal" href="_modules/libs/GAS/builder.html#insert_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.GAS.builder.insert_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libs.GAS.builder.merge">
+<span class="sig-prename descclassname"><span class="pre">libs.GAS.builder.</span></span><span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="libs.SMT.html#libs.SMT.core.Model" title="libs.SMT.core.Model"><span class="pre">libs.SMT.core.Model</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">list</span><a class="reference internal" href="_modules/libs/GAS/builder.html#merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.GAS.builder.merge" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libs.GAS.builder.typeA">
+<span class="sig-prename descclassname"><span class="pre">libs.GAS.builder.</span></span><span class="sig-name descname"><span class="pre">typeA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="libs.SMT.html#libs.SMT.core.Model" title="libs.SMT.core.Model"><span class="pre">libs.SMT.core.Model</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libs.GAS.operand.OperandDict" title="libs.GAS.operand.OperandDict"><span class="pre">libs.GAS.operand.OperandDict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#libs.GAS.line.Line" title="libs.GAS.line.Line"><span class="pre">libs.GAS.line.Line</span></a><a class="reference internal" href="_modules/libs/GAS/builder.html#typeA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.GAS.builder.typeA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libs.GAS.builder.typeB">
+<span class="sig-prename descclassname"><span class="pre">libs.GAS.builder.</span></span><span class="sig-name descname"><span class="pre">typeB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="libs.SMT.html#libs.SMT.core.Model" title="libs.SMT.core.Model"><span class="pre">libs.SMT.core.Model</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libs.GAS.operand.OperandDict" title="libs.GAS.operand.OperandDict"><span class="pre">libs.GAS.operand.OperandDict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#libs.GAS.line.Line" title="libs.GAS.line.Line"><span class="pre">libs.GAS.line.Line</span></a><a class="reference internal" href="_modules/libs/GAS/builder.html#typeB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.GAS.builder.typeB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
 <div class="section" id="module-libs.GAS.line">
 <span id="libs-gas-line-module"></span><h2>libs.GAS.line module<a class="headerlink" href="#module-libs.GAS.line" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
@@ -231,16 +256,21 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="libs.GAS.operand.OperandDict.filter_self">
-<span class="sig-name descname"><span class="pre">filter_self</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/GAS/operand.html#OperandDict.filter_self"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.GAS.operand.OperandDict.filter_self" title="Permalink to this definition">¶</a></dt>
-<dd><p>不要な変数を取り除く</p>
-<p>難読化によって自動生成された変数を除いたOperandDictを返す．</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="libs.GAS.operand.OperandDict.get_values">
 <span class="sig-name descname"><span class="pre">get_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/GAS/operand.html#OperandDict.get_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.GAS.operand.OperandDict.get_values" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libs.GAS.operand.OperandDict.ignore_dummies">
+<span class="sig-name descname"><span class="pre">ignore_dummies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/GAS/operand.html#OperandDict.ignore_dummies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.GAS.operand.OperandDict.ignore_dummies" title="Permalink to this definition">¶</a></dt>
+<dd><p>難読化によって自動生成された変数を除いたOperandDictを返す．</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libs.GAS.operand.OperandDict.ignore_imm">
+<span class="sig-name descname"><span class="pre">ignore_imm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/libs/GAS/operand.html#OperandDict.ignore_imm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libs.GAS.operand.OperandDict.ignore_imm" title="Permalink to this definition">¶</a></dt>
+<dd><p>即値を除いたOperandDictを返す．</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libs.GAS.operand.OperandDict.randomize">

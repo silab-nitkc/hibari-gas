@@ -181,7 +181,7 @@
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="Simulator.label"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.simulator.Simulator.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
-        <span class="k">pass</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pc</span> <span class="o">+=</span> <span class="mi">1</span></div>
     
 <div class="viewcode-block" id="Simulator.add"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.simulator.Simulator.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">op_dict</span><span class="o">.</span><span class="n">all</span><span class="p">[</span><span class="n">tree</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">val</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">op_dict</span><span class="o">.</span><span class="n">all</span><span class="p">[</span><span class="n">tree</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">val</span>

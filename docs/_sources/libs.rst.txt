@@ -13,6 +13,14 @@ Subpackages
 Submodules
 ----------
 
+libs.color module
+-----------------
+
+.. automodule:: libs.color
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 libs.settings module
 --------------------
 

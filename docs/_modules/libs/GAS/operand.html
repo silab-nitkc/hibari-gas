@@ -192,21 +192,28 @@
         <span class="k">if</span> <span class="n">op</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">[</span><span class="n">op</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">op</span></div>
         
-<div class="viewcode-block" id="OperandDict.filter_self"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.operand.OperandDict.filter_self">[docs]</a>    <span class="k">def</span> <span class="nf">filter_self</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;不要な変数を取り除く</span>
-
-<span class="sd">        難読化によって自動生成された変数を除いたOperandDictを返す．</span>
-
+<div class="viewcode-block" id="OperandDict.ignore_dummies"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.operand.OperandDict.ignore_dummies">[docs]</a>    <span class="k">def</span> <span class="nf">ignore_dummies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;難読化によって自動生成された変数を除いたOperandDictを返す．</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">OperandDict</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">op</span><span class="o">.</span><span class="n">is_imm</span> <span class="ow">or</span> <span class="n">op</span><span class="o">.</span><span class="n">is_dummy</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">op</span><span class="o">.</span><span class="n">is_dummy</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">res</span></div>
+    
+<div class="viewcode-block" id="OperandDict.ignore_imm"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.operand.OperandDict.ignore_imm">[docs]</a>    <span class="k">def</span> <span class="nf">ignore_imm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;即値を除いたOperandDictを返す．</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">OperandDict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">op</span><span class="o">.</span><span class="n">is_imm</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">res</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">res</span></div>
     
 <div class="viewcode-block" id="OperandDict.get_values"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.operand.OperandDict.get_values">[docs]</a>    <span class="k">def</span> <span class="nf">get_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">op</span><span class="o">.</span><span class="n">val</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="p">[</span><span class="n">op</span><span class="o">.</span><span class="n">val</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span></div>
 
 <div class="viewcode-block" id="OperandDict.extend"><a class="viewcode-back" href="../../../libs.GAS.html#libs.GAS.operand.OperandDict.extend">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">extend</span><span class="p">(</span><span class="n">op1</span><span class="p">,</span> <span class="n">op2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

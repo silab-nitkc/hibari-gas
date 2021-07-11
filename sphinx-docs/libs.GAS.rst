@@ -4,6 +4,14 @@ libs.GAS package
 Submodules
 ----------
 
+libs.GAS.builder module
+-----------------------
+
+.. automodule:: libs.GAS.builder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 libs.GAS.line module
 --------------------
 

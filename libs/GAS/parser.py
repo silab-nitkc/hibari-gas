@@ -43,9 +43,11 @@ class Parser(Transformer):
     
     def jz(self, tree):
         self.line.op = 'jz'
+        self.line.operands += [Operand(str(tree[0]))]
     
     def jnz(self, tree):
         self.line.op = 'jnz'
+        self.line.operands += [Operand(str(tree[0]))]
 
     def suffix(self, tree):
         self.line.bits = self.suffix_to_int(tree[0])

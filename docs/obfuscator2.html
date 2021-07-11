@@ -159,13 +159,18 @@
   <div class="section" id="module-obfuscator2">
 <span id="obfuscator2-module"></span><h1>obfuscator2 module<a class="headerlink" href="#module-obfuscator2" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
+<dt class="sig sig-object py" id="obfuscator2.check">
+<span class="sig-prename descclassname"><span class="pre">obfuscator2.</span></span><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lines2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">bool</span><a class="reference internal" href="_modules/obfuscator2.html#check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#obfuscator2.check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="obfuscator2.main">
 <span class="sig-prename descclassname"><span class="pre">obfuscator2.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/obfuscator2.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#obfuscator2.main" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="obfuscator2.obfuscate">
-<span class="sig-prename descclassname"><span class="pre">obfuscator2.</span></span><span class="sig-name descname"><span class="pre">obfuscate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PC_MAX</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="libs.GAS.html#libs.GAS.line.Line" title="libs.GAS.line.Line"><span class="pre">libs.GAS.line.Line</span></a><a class="reference internal" href="_modules/obfuscator2.html#obfuscate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#obfuscator2.obfuscate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">obfuscator2.</span></span><span class="sig-name descname"><span class="pre">obfuscate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">OP_LEN</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">,</span> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="_modules/obfuscator2.html#obfuscate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#obfuscator2.obfuscate" title="Permalink to this definition">¶</a></dt>
 <dd><p>難読化関数</p>
 <p>Lineインスタンスのリストを受け取り，難読化したLineインスタンスのリストを返す．
 難読化に失敗した場合，受け取ったリストをそのまま返す．</p>
@@ -173,7 +178,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>line</strong> (<a class="reference internal" href="libs.GAS.html#libs.GAS.line.Line" title="libs.GAS.line.Line"><em>Line</em></a><em>[</em><em>]</em>) – 難読化対象のGAS</p></li>
-<li><p><strong>PC_MAX</strong> (<em>int</em>) – 命令列の長さ</p></li>
+<li><p><strong>OP_LEN</strong> (<em>int</em>) – 命令列の長さ</p></li>
 <li><p><strong>ttl</strong> (<em>int</em><em>, </em><em>optional</em>) – 難読化を試行する最大回数</p></li>
 </ul>
 </dd>

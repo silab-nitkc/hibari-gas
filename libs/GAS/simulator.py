@@ -24,7 +24,7 @@ class Simulator(Transformer):
         pass
 
     def label(self, tree):
-        pass
+        self.pc += 1
     
     def add(self, tree):
         self.op_dict.all[tree[2]].val += self.op_dict.all[tree[1]].val

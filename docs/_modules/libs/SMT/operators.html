@@ -197,15 +197,18 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">z3</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="n">z3</span><span class="o">.</span><span class="n">And</span><span class="p">(</span><span class="n">when</span><span class="p">),</span> <span class="n">z3</span><span class="o">.</span><span class="n">And</span><span class="p">(</span><span class="n">const</span><span class="p">),</span> <span class="kc">True</span><span class="p">)]</span></div>
     
 <div class="viewcode-block" id="TypeA.eval_as_long"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.TypeA.eval_as_long">[docs]</a>    <span class="k">def</span> <span class="nf">eval_as_long</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
-        <span class="n">sii</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src_is_imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
-        <span class="n">dst</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sii</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src_is_imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
+            <span class="n">dst</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">sii</span><span class="p">:</span>
-            <span class="n">imm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_signed_long</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">imm</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">src</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">src</span></div>
+            <span class="k">if</span> <span class="n">sii</span><span class="p">:</span>
+                <span class="n">imm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_signed_long</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">imm</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">src</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">src</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
     
 <div class="viewcode-block" id="TypeA.eval_as_GAS"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.TypeA.eval_as_GAS">[docs]</a>    <span class="k">def</span> <span class="nf">eval_as_GAS</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">gas_lines</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">suffix</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -351,16 +354,19 @@
         <span class="k">return</span> <span class="n">const</span></div>
     
 <div class="viewcode-block" id="Mov.eval_as_long"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.Mov.eval_as_long">[docs]</a>    <span class="k">def</span> <span class="nf">eval_as_long</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
-        <span class="n">sii</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src_is_imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
-        <span class="n">dst</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sii</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src_is_imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
+            <span class="n">dst</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">sii</span><span class="p">:</span>
-            <span class="n">imm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_signed_long</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">imm</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">src</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">src</span></div>
-            
+            <span class="k">if</span> <span class="n">sii</span><span class="p">:</span>
+                <span class="n">imm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_signed_long</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">imm</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">src</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">src</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
+
 <div class="viewcode-block" id="Mov.eval_as_GAS"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.Mov.eval_as_GAS">[docs]</a>    <span class="k">def</span> <span class="nf">eval_as_GAS</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">gas_lines</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">suffix</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">size</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -403,8 +409,11 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">z3</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="n">z3</span><span class="o">.</span><span class="n">And</span><span class="p">(</span><span class="n">when</span><span class="p">),</span> <span class="n">z3</span><span class="o">.</span><span class="n">And</span><span class="p">(</span><span class="n">const</span><span class="p">),</span> <span class="kc">True</span><span class="p">)]</span></div>
     
 <div class="viewcode-block" id="TypeB.eval_as_long"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.TypeB.eval_as_long">[docs]</a>    <span class="k">def</span> <span class="nf">eval_as_long</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
-        <span class="n">imm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_signed_long</span><span class="p">()</span>
-        <span class="k">return</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="n">imm</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">imm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_signed_long</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">imm</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
     
 <div class="viewcode-block" id="TypeB.eval_as_GAS"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.TypeB.eval_as_GAS">[docs]</a>    <span class="k">def</span> <span class="nf">eval_as_GAS</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">gas_lines</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">suffix</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -476,8 +485,8 @@
     <span class="s1">&#39;and&#39;</span><span class="p">:</span> <span class="n">And</span><span class="p">,</span>
     <span class="s1">&#39;or&#39;</span> <span class="p">:</span> <span class="n">Or</span><span class="p">,</span>
     <span class="s1">&#39;mov&#39;</span><span class="p">:</span> <span class="n">Mov</span><span class="p">,</span>
-    <span class="c1"># &#39;jz&#39; : JZ,</span>
-    <span class="c1"># &#39;jnz&#39;: JNZ,</span>
+    <span class="s1">&#39;jz&#39;</span> <span class="p">:</span> <span class="n">JZ</span><span class="p">,</span>
+    <span class="s1">&#39;jnz&#39;</span><span class="p">:</span> <span class="n">JNZ</span><span class="p">,</span>
     <span class="s1">&#39;stop&#39;</span><span class="p">:</span> <span class="n">Stop</span><span class="p">,</span>
 <span class="p">}</span>
 
