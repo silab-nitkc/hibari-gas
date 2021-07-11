@@ -43,6 +43,7 @@ class Model:
             print('unsat')
             return None
         m = self.sl.model()
+        self.m = m
         return m
 
 class IOExample:

@@ -67,7 +67,7 @@ class Parser(Transformer):
         return str(tree[0])
     
     def dummy(self, tree):
-        is_dummy = "R{}+".format(self.REC_COUNT) in tree[0]
+        is_dummy = "R{}+".format(Parser.REC_COUNT) in tree[0]
         self.line.operands += [Operand(str(tree[0]), is_dummy=is_dummy)]
         return str(tree[0])
 

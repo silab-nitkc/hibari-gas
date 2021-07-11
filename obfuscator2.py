@@ -1,9 +1,11 @@
 from libs.GAS import *
 from libs.SMT import *
 from libs.settings import *
+from libs import color
+from typing import Tuple
 import argparse
 
-def obfuscate(lines: list[Line], OP_LEN: int, ttl: int = 3) -> Line:
+def obfuscate(lines: list[Line], OP_LEN: int, ttl: int = 3) -> Tuple[list[Line], bool]:
     """難読化関数
 
     Lineインスタンスのリストを受け取り，難読化したLineインスタンスのリストを返す．
@@ -16,25 +18,27 @@ def obfuscate(lines: list[Line], OP_LEN: int, ttl: int = 3) -> Line:
     """
 
     if ttl <= 0:
-        return lines
+        return lines, False
 
     # 入出力例のリスト
     ioexamples: list[IOExample] = []
 
     for i in range(IOExample_N):
         start, end, _ = simulate(lines)
-        start = start.ignore_imm().ignore_dummies()
-        end   = end.ignore_imm().ignore_dummies()
+        start = start.ignore_imm()
+        end   = end.ignore_imm()
         values = [Values(start.get_values(), start=True)]
         values += [Values() for i in range(OP_LEN)]
         values += [Values(end.get_values(), end=True)]
         ioexamples += [IOExample(values)]
-    
+        
     is_reg = [op.is_reg for op in start.ignore_imm().all.values()]
     model = Model(ioexamples, OP_LEN, is_reg)
 
     if (m:=model.solve()) is None:
-        return lines
+        return lines, False
+    
+    return merge(model, lines), True
 
 def main():
     parser = argparse.ArgumentParser(description='GAS obfuscator.')
@@ -51,9 +55,30 @@ def main():
     lines: list[Line] = list(map(Line, raw.split('\n')))
     res  : list[Line] = []
 
-    for line in lines:
+    for i, line in enumerate(lines):
+        print(f'{color.yellow}[Pending]{color.reset}\t{line.raw}')
+
         if line.op not in TARGET_OP:
             res += [line]
+            color.back_to(1)
+            print(f'[ {i+1}/{len(lines)} ]\t{line.raw}')
             continue
         
-        res += obfuscate(line)
+        obfuscated_lines, succeded = obfuscate([line], args.l)
+        res += obfuscated_lines
+        
+        color.back_to(1)
+        if succeded:
+            print(f'{color.green}[Obfuscated]{color.red}\t{line.raw}{color.reset}')
+            for l in obfuscated_lines:
+                print(f'{color.green}    |--> \t{l.raw}{color.reset}')
+        else:
+            print(f'[ {i+1}/{len(lines)} ]\t{line.raw}')
+    
+    res = insert_data(lines)
+    
+    with open(args.o, 'w', encoding='utf-8') as f:
+        f.write('\n'.join([l.raw for l in res]) + '\n')
+
+if __name__ == "__main__":
+    main()
