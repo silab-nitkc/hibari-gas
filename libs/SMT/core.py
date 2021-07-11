@@ -4,14 +4,13 @@ from . import operators
 from ..static import *
 
 class Model:
-    def __init__(self, ioe, PC_LEN, is_reg, REC_IDX):
+    def __init__(self, ioe, PC_LEN, is_reg):
         """
             ioe: IOExampleの配列．
             PC_LEN: 命令列の長さ．
             is_reg: レジスタならTrue，それ以外ならFalseを入れる．
         """
         self.PC_LEN     = PC_LEN + 1
-        self.REC_IDX = REC_IDX
         self.PC_BITS    = len(bin(self.PC_LEN)) - 2
         self.step_len   = len(ioe[0].values)
         self.step_bits  = len(bin(self.step_len)) - 2
@@ -44,13 +43,8 @@ class Model:
             print('unsat')
             return None
         m = self.sl.model()
-        # self.eval(m)
+        self.m = m
         return m
-    
-    def eval(self, m):
-        for i, ioe in enumerate(self.ioe):
-            print("\n<IOExample {}>".format(i))
-            ioe.eval(m)
 
 class IOExample:
     def __init__(self, values):
@@ -72,10 +66,6 @@ class IOExample:
                 const += op.get_const(self.values[i], self.values[i+1])
         
         return const
-
-    def eval(self, m):
-        for val in self.values:
-            print(val.model_to_str(m))
 
 class Values:
     def __init__(self, val_example = None, start = False, end = False):
@@ -115,25 +105,6 @@ class Values:
         else:
             ret += [z3.ULE(0, self.pc), z3.ULE(self.pc, self.PC_LEN - 1)]
 
-        return ret
-    
-    def model_to_str(self, m):
-        ret = ""
-        pc = m.eval(self.pc).as_long()
-        ret += "\t\t\t\t\t" + "\t".join([str(m.eval(self.val[i]).as_signed_long()) for i in range(2**REG_BITS)])
-        ret += "\n"
-
-        # 出力状態だと命令が定義されていないためここで中断
-        if len(self.model.op_list) <= pc:
-            ret += '{}'.format(pc)
-            return ret
-        op = self.model.op_list[pc].op_list[m.eval(self.op).as_long()]
-        dst, sii, val = op.eval_as_long(m)
-        
-        if sii == 0:
-            val = '[' + str(val) + ']'
-            
-        ret += "{}\t[{}]\t{}\t{}".format(pc, dst, op.name, val)
         return ret
 
 class Op:

@@ -40,15 +40,18 @@ class TypeA:
         return [z3.If(z3.And(when), z3.And(const), True)]
     
     def eval_as_long(self, m):
-        sii = m.eval(self.src_is_imm).as_long()
-        dst = m.eval(self.dst).as_long()
+        try:
+            sii = m.eval(self.src_is_imm).as_long()
+            dst = m.eval(self.dst).as_long()
 
-        if sii:
-            imm = m.eval(self.imm).as_signed_long()
-            return dst, sii, imm
-        else:
-            src = m.eval(self.src).as_long()
-            return dst, sii, src
+            if sii:
+                imm = m.eval(self.imm).as_signed_long()
+                return dst, sii, imm
+            else:
+                src = m.eval(self.src).as_long()
+                return dst, sii, src
+        except:
+            return None, None, None
     
     def eval_as_GAS(self, m, gas_lines, i, suffix):
         try:
@@ -194,16 +197,19 @@ class Mov:
         return const
     
     def eval_as_long(self, m):
-        sii = m.eval(self.src_is_imm).as_long()
-        dst = m.eval(self.dst).as_long()
+        try:
+            sii = m.eval(self.src_is_imm).as_long()
+            dst = m.eval(self.dst).as_long()
 
-        if sii:
-            imm = m.eval(self.imm).as_signed_long()
-            return dst, sii, imm
-        else:
-            src = m.eval(self.src).as_long()
-            return dst, sii, src
-            
+            if sii:
+                imm = m.eval(self.imm).as_signed_long()
+                return dst, sii, imm
+            else:
+                src = m.eval(self.src).as_long()
+                return dst, sii, src
+        except:
+            return None, None, None
+
     def eval_as_GAS(self, m, gas_lines, i, suffix):
         try:
             size = ''
@@ -246,8 +252,11 @@ class TypeB:
         return [z3.If(z3.And(when), z3.And(const), True)]
     
     def eval_as_long(self, m):
-        imm = m.eval(self.imm).as_signed_long()
-        return '---', '---', imm
+        try:
+            imm = m.eval(self.imm).as_signed_long()
+            return imm
+        except:
+            return None
     
     def eval_as_GAS(self, m, gas_lines, i, suffix):
         try:
@@ -319,8 +328,8 @@ all = {
     'and': And,
     'or' : Or,
     'mov': Mov,
-    # 'jz' : JZ,
-    # 'jnz': JNZ,
+    'jz' : JZ,
+    'jnz': JNZ,
     'stop': Stop,
 }
 

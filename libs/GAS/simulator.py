@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Optional, Union
 from lark import Transformer
 from .line import Line
 from .operand import OperandDict
@@ -24,7 +24,7 @@ class Simulator(Transformer):
         pass
 
     def label(self, tree):
-        pass
+        self.pc += 1
     
     def add(self, tree):
         self.op_dict.all[tree[2]].val += self.op_dict.all[tree[1]].val
@@ -99,19 +99,30 @@ def find_label(lines: list[Line], label: str):
             return i
     return None
 
-def simulate(lines: list[Line], op_dict: OperandDict) -> list[OperandDict]:
-    init = op_dict
-    res  = init.copy()
-    sim = Simulator(res)
+def simulate(lines: list[Line], start: Optional[OperandDict] = None) -> list[Union[OperandDict, Simulator]]:
+    """GASの挙動をシミュレートする
 
+    Lineインスタンスのリストを受け取り，実行前後のオペランドの値とプログラムカウンタ等の値を返す．
+
+    Args:
+        lines (list[Line]):  実行するGAS（Line）のリスト
+        start (OperandDict, optional):  オペランドの初期値（指定がなければ乱数を用いる）
+    """
+    if start is None:
+        start   = Line.operand_dict(lines)
+
+    end     = start.copy()
+    sim     = Simulator(end)
+    
     for i in range(100):
         try:
             line = lines[sim.pc]
         except:
-            return init, res, sim
+            break
         sim.transform(line.tree)
+
+        # 指定されたラベルにジャンプする
         if type(sim.pc) is not int:
             sim.pc = find_label(lines, sim.pc)
-
-    return init, res, sim
     
+    return start, end, sim

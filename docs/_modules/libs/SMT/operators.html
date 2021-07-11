@@ -160,8 +160,7 @@
 <span class="kn">from</span> <span class="nn">..static</span> <span class="kn">import</span> <span class="o">*</span>
 
 <div class="viewcode-block" id="TypeA"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.TypeA">[docs]</a><span class="k">class</span> <span class="nc">TypeA</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    add, sub等の一般的な演算用の親クラス</span>
+    <span class="sd">&quot;&quot;&quot;Superclass of Add and Sub.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_reg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">is_reg</span>
@@ -198,15 +197,18 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">z3</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="n">z3</span><span class="o">.</span><span class="n">And</span><span class="p">(</span><span class="n">when</span><span class="p">),</span> <span class="n">z3</span><span class="o">.</span><span class="n">And</span><span class="p">(</span><span class="n">const</span><span class="p">),</span> <span class="kc">True</span><span class="p">)]</span></div>
     
 <div class="viewcode-block" id="TypeA.eval_as_long"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.TypeA.eval_as_long">[docs]</a>    <span class="k">def</span> <span class="nf">eval_as_long</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
-        <span class="n">sii</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src_is_imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
-        <span class="n">dst</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sii</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src_is_imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
+            <span class="n">dst</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">sii</span><span class="p">:</span>
-            <span class="n">imm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_signed_long</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">imm</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">src</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">src</span></div>
+            <span class="k">if</span> <span class="n">sii</span><span class="p">:</span>
+                <span class="n">imm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_signed_long</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">imm</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">src</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">src</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
     
 <div class="viewcode-block" id="TypeA.eval_as_GAS"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.TypeA.eval_as_GAS">[docs]</a>    <span class="k">def</span> <span class="nf">eval_as_GAS</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">gas_lines</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">suffix</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -251,6 +253,54 @@
         <span class="n">const</span> <span class="o">+=</span> <span class="p">[</span><span class="n">z3</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="n">sii</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> 
                     <span class="nb">next</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">==</span> <span class="n">current</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">-</span> <span class="n">current</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">src</span><span class="p">],</span> 
                     <span class="nb">next</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">==</span> <span class="n">current</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">-</span> <span class="n">imm</span>
+        <span class="p">)]</span>
+
+        <span class="k">return</span> <span class="n">const</span></div></div>
+
+<div class="viewcode-block" id="Xor"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.Xor">[docs]</a><span class="k">class</span> <span class="nc">Xor</span><span class="p">(</span><span class="n">TypeA</span><span class="p">):</span>
+    <span class="n">ID</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="Xor.get_op_const"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.Xor.get_op_const">[docs]</a>    <span class="k">def</span> <span class="nf">get_op_const</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">,</span> <span class="nb">next</span><span class="p">):</span>
+        <span class="n">const</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">dst</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">imm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dst</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_is_imm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">imm</span>
+
+        <span class="n">const</span> <span class="o">+=</span> <span class="p">[</span><span class="n">z3</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="n">sii</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> 
+                    <span class="nb">next</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">==</span> <span class="n">current</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">^</span> <span class="n">current</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">src</span><span class="p">],</span> 
+                    <span class="nb">next</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">==</span> <span class="n">current</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">^</span> <span class="n">imm</span>
+        <span class="p">)]</span>
+
+        <span class="k">return</span> <span class="n">const</span></div></div>
+
+<div class="viewcode-block" id="And"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.And">[docs]</a><span class="k">class</span> <span class="nc">And</span><span class="p">(</span><span class="n">TypeA</span><span class="p">):</span>
+    <span class="n">ID</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="And.get_op_const"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.And.get_op_const">[docs]</a>    <span class="k">def</span> <span class="nf">get_op_const</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">,</span> <span class="nb">next</span><span class="p">):</span>
+        <span class="n">const</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">dst</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">imm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dst</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_is_imm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">imm</span>
+
+        <span class="n">const</span> <span class="o">+=</span> <span class="p">[</span><span class="n">z3</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="n">sii</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> 
+                    <span class="nb">next</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">==</span> <span class="n">current</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">current</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">src</span><span class="p">],</span> 
+                    <span class="nb">next</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">==</span> <span class="n">current</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">imm</span>
+        <span class="p">)]</span>
+
+        <span class="k">return</span> <span class="n">const</span></div></div>
+
+<div class="viewcode-block" id="Or"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.Or">[docs]</a><span class="k">class</span> <span class="nc">Or</span><span class="p">(</span><span class="n">TypeA</span><span class="p">):</span>
+    <span class="n">ID</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="Or.get_op_const"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.Or.get_op_const">[docs]</a>    <span class="k">def</span> <span class="nf">get_op_const</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">,</span> <span class="nb">next</span><span class="p">):</span>
+        <span class="n">const</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">dst</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">imm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dst</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_is_imm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">imm</span>
+
+        <span class="n">const</span> <span class="o">+=</span> <span class="p">[</span><span class="n">z3</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="n">sii</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> 
+                    <span class="nb">next</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">==</span> <span class="n">current</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">|</span> <span class="n">current</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">src</span><span class="p">],</span> 
+                    <span class="nb">next</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">==</span> <span class="n">current</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span> <span class="o">|</span> <span class="n">imm</span>
         <span class="p">)]</span>
 
         <span class="k">return</span> <span class="n">const</span></div></div>
@@ -304,16 +354,19 @@
         <span class="k">return</span> <span class="n">const</span></div>
     
 <div class="viewcode-block" id="Mov.eval_as_long"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.Mov.eval_as_long">[docs]</a>    <span class="k">def</span> <span class="nf">eval_as_long</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
-        <span class="n">sii</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src_is_imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
-        <span class="n">dst</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sii</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src_is_imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
+            <span class="n">dst</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">sii</span><span class="p">:</span>
-            <span class="n">imm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_signed_long</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">imm</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">src</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">src</span></div>
-            
+            <span class="k">if</span> <span class="n">sii</span><span class="p">:</span>
+                <span class="n">imm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_signed_long</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">imm</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">src</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="p">)</span><span class="o">.</span><span class="n">as_long</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">dst</span><span class="p">,</span> <span class="n">sii</span><span class="p">,</span> <span class="n">src</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
+
 <div class="viewcode-block" id="Mov.eval_as_GAS"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.Mov.eval_as_GAS">[docs]</a>    <span class="k">def</span> <span class="nf">eval_as_GAS</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">gas_lines</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">suffix</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">size</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -329,8 +382,7 @@
             <span class="k">pass</span></div></div>
 
 <div class="viewcode-block" id="TypeB"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.TypeB">[docs]</a><span class="k">class</span> <span class="nc">TypeB</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        ジャンプ命令の親クラス</span>
+    <span class="sd">&quot;&quot;&quot;Superclass of JZ and JNZ.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">label_count</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
@@ -357,8 +409,11 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">z3</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="n">z3</span><span class="o">.</span><span class="n">And</span><span class="p">(</span><span class="n">when</span><span class="p">),</span> <span class="n">z3</span><span class="o">.</span><span class="n">And</span><span class="p">(</span><span class="n">const</span><span class="p">),</span> <span class="kc">True</span><span class="p">)]</span></div>
     
 <div class="viewcode-block" id="TypeB.eval_as_long"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.TypeB.eval_as_long">[docs]</a>    <span class="k">def</span> <span class="nf">eval_as_long</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
-        <span class="n">imm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_signed_long</span><span class="p">()</span>
-        <span class="k">return</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="n">imm</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">imm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imm</span><span class="p">)</span><span class="o">.</span><span class="n">as_signed_long</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">imm</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
     
 <div class="viewcode-block" id="TypeB.eval_as_GAS"><a class="viewcode-back" href="../../../libs.SMT.html#libs.SMT.operators.TypeB.eval_as_GAS">[docs]</a>    <span class="k">def</span> <span class="nf">eval_as_GAS</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">gas_lines</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">suffix</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -426,9 +481,12 @@
 <span class="nb">all</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;add&#39;</span><span class="p">:</span> <span class="n">Add</span><span class="p">,</span>
     <span class="s1">&#39;sub&#39;</span><span class="p">:</span> <span class="n">Sub</span><span class="p">,</span>
+    <span class="s1">&#39;xor&#39;</span><span class="p">:</span> <span class="n">Xor</span><span class="p">,</span>
+    <span class="s1">&#39;and&#39;</span><span class="p">:</span> <span class="n">And</span><span class="p">,</span>
+    <span class="s1">&#39;or&#39;</span> <span class="p">:</span> <span class="n">Or</span><span class="p">,</span>
     <span class="s1">&#39;mov&#39;</span><span class="p">:</span> <span class="n">Mov</span><span class="p">,</span>
     <span class="s1">&#39;jz&#39;</span> <span class="p">:</span> <span class="n">JZ</span><span class="p">,</span>
-    <span class="c1"># &#39;jnz&#39;: JNZ,</span>
+    <span class="s1">&#39;jnz&#39;</span><span class="p">:</span> <span class="n">JNZ</span><span class="p">,</span>
     <span class="s1">&#39;stop&#39;</span><span class="p">:</span> <span class="n">Stop</span><span class="p">,</span>
 <span class="p">}</span>
 
@@ -441,9 +499,6 @@
 <span class="c1"># 命令の名前を設定</span>
 <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">all</span><span class="p">:</span>
     <span class="nb">all</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-
-<span class="c1"># import code </span>
-<span class="c1"># code.InteractiveConsole(globals()).interact()</span>
 </pre></div>
 
            </div>
