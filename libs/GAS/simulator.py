@@ -125,5 +125,7 @@ def simulate(lines: list[Line], start: Optional[OperandDict] = None) -> list[Uni
         # 指定されたラベルにジャンプする
         if type(sim.pc) is not int:
             sim.pc = find_label(lines, sim.pc)
-    
+    else:
+        # ここまで到達したら無限ループであるとみなす
+        return None, None, None
     return start, end, sim
