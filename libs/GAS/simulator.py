@@ -114,7 +114,6 @@ def simulate(lines: list[Line], start: Optional[OperandDict] = None) -> list[Uni
 
     end     = start.copy()
     sim     = Simulator(end)
-    
     for i in range(100):
         try:
             line = lines[sim.pc]

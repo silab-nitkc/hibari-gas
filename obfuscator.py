@@ -13,6 +13,8 @@ def check(lines1: list[Line], lines2: list[Line]) -> bool:
 
         start1, end1, flag1 = simulate(lines1, op1)
         start2, end2, flag2 = simulate(lines2, op2)
+        if start1 is None or start2 is None:
+            return False
         if not end1.ignore_imm().same_as(end2.ignore_imm()):
             return False
 
