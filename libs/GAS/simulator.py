@@ -2,13 +2,14 @@ from typing import Optional, Union
 from lark import Transformer
 from .line import Line
 from .operand import OperandDict
+from random import randint
 
 class Simulator(Transformer):
     def __init__(self, op_dict: OperandDict) -> None:
         super().__init__()
         self.op_dict = op_dict
         self.pc = 0
-        self.zf = -1
+        self.zf = randint(0, 1)
         self.jump_to = None
     
     def suffix_to_int(self, suffix: str) -> int:
