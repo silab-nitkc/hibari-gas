@@ -31,7 +31,7 @@ class TypeA:
         const += [next.pc == current.pc + 1]
 
         # 無意味な演算は禁止する
-        const += [imm != 0, -10 <= imm, imm <= 10]
+        const += [z3.ULT(0, imm), z3.ULE(imm, 10)]
 
         # GASで不可能な演算（メモリ間演算）を禁止する
         const += [z3.Or(is_reg[dst] == 1, is_reg[src] == 1, sii == 1)]
@@ -175,8 +175,7 @@ class Mov:
         # プログラムカウンタを更新
         const += [next.pc == current.pc + 1]
 
-        # 無意味な演算は禁止する
-        const += [-10 <= imm, imm <= 10]
+        const += [z3.ULE(0, imm), z3.ULE(imm, 10)]
 
         # GASで不可能な演算（メモリ間演算）を禁止する
         const += [z3.Or(is_reg[dst] == 1, is_reg[src] == 1, sii == 1)]
@@ -216,7 +215,7 @@ class Mov:
             sii = m.eval(self.src_is_imm).as_long()
             dst = m.eval(self.dst).as_long()
             if sii:
-                imm = m.eval(self.imm).as_signed_long()
+                imm = m.eval(self.imm).as_long()
                 gas_lines[i] += '{}{}\t${}, {{{}}}'.format(self.name, suffix, imm, dst)
             else:
                 src = m.eval(self.src).as_long()

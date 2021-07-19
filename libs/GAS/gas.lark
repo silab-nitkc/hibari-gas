@@ -40,4 +40,4 @@ x32register	: /%eax/
 
 name		: /[0-9a-zA-Z]+/
 dummy		: /R[0-9]+\+[0-9]+\*8\(%rip\)/
-immidiate	: "$" /[+-]?\d+/
+immidiate	: "$" /\d+/
