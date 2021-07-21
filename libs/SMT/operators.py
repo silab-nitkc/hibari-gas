@@ -246,6 +246,8 @@ class TypeB:
 
         # ジャンプ先は命令列の範囲内とする
         const += [-current.pc <= imm, imm < self.PC_LEN - current.pc - 1, imm != 0, imm != 1]
+        # ゼロフラグが不定だったらそもそも実行不可とする
+        const += [current.zero_flag != 2]
 
         when = [current.op == self.ID]  # 自分自身が実行されているときのみ上記の制約を適用する
         return [z3.If(z3.And(when), z3.And(const), True)]
