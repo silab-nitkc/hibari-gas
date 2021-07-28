@@ -33,7 +33,11 @@ def obfuscate(lines: list[Line], OP_LEN: int, retry: int = 0) -> Tuple[list[Line
     """
 
     if retry >= RETRY_MAX:
-        return lines, False
+        return lines
+    
+    if retry == 0:
+        for line in lines:
+            print(f'{color.red} - {line.raw}{color.reset}')
 
     # 入出力例
     ioexamples: list[IOExample] = []
@@ -51,24 +55,15 @@ def obfuscate(lines: list[Line], OP_LEN: int, retry: int = 0) -> Tuple[list[Line
     model = Model(ioexamples, OP_LEN, is_reg)
 
     if (m:=model.solve()) is None:
-        return lines, False
+        return lines
     
     res = merge(model, lines)
 
     # 入出力テスト
     if not check(lines, res):
-        print(f'{color.yellow}[Retrying({retry+1})]{color.red}\t{lines[0].raw}{color.reset}')
-        for l in lines[1:]:
-            print(f'{color.red}\t-\t{l.raw}{color.reset}')
-
-        for l in res:
-            print(f'{color.green}\t+\t{l.raw}{color.reset}')
-        
-        color.back_to(len(lines) + len(res))
-        # retry
         return obfuscate(lines, OP_LEN, retry+1)
     
-    return res, True
+    return res
 
 def main():
     parser = argparse.ArgumentParser(description='GAS obfuscator.')
@@ -84,25 +79,31 @@ def main():
     
     lines: list[Line] = list(map(Line, raw.split('\n')))
     res  : list[Line] = []
+    buf  : list[Line] = []
 
     for i, line in enumerate(lines):
-        print(f'{color.yellow}[Pending]{color.reset}\t{line.raw}')
-        color.back_to(1)
-
         if line.op not in TARGET_OP:
+            if len(buf) != 0:
+                print(f'{args.src}:{i}')
+                temp = obfuscate(buf, args.l)
+                for line in temp:
+                    print(f'{color.green} + {line.raw}{color.reset}')
+                res += temp
+                buf = []
             res += [line]
-            print(f'[ {i+1}/{len(lines)} ]\t{line.raw}')
             continue
         
-        obfuscated_lines, succeded = obfuscate([line], args.l)
-        res += obfuscated_lines
+        buf += [line]
         
-        if succeded:
-            print(f'{color.yellow}[Obfuscated]{color.red}\t{line.raw}{color.reset}')
-            for l in obfuscated_lines:
-                print(f'{color.green}\t+\t{l.raw}{color.reset}')
-        else:
-            print(f'{color.red}[Skiped]{color.reset}\t{line.raw}')
+        if len(buf) < MAX_LINE_N:
+            continue
+
+        print(f'{args.src}:{i+1}')
+        temp = obfuscate(buf, args.l)
+        for line in temp:
+            print(f'{color.green} + {line.raw}{color.reset}')
+        res += temp
+        buf = []
     
     res = insert_data(res)
     
