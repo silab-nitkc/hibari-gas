@@ -69,7 +69,7 @@ def main():
     parser = argparse.ArgumentParser(description='GAS obfuscator.')
     parser.add_argument('src', help='Path of input file.')
     parser.add_argument('-o', help='Path of output file.', default='res.s')
-    parser.add_argument('-n', help='Maximum number of lines to obfuscate at once.', default=2, type=int)
+    parser.add_argument('-n', help='Maximum number of lines to obfuscate at once.', default=1, type=int)
     parser.add_argument('-l', help='Number of instructions used for obfuscation.', default=5, type=int)
 
     args = parser.parse_args()
@@ -86,8 +86,8 @@ def main():
             if len(buf) != 0:
                 print(f'{args.src}:{i}')
                 temp = obfuscate(buf, args.l)
-                for line in temp:
-                    print(f'{color.green} + {line.raw}{color.reset}')
+                for e in temp:
+                    print(f'{color.green} + {e.raw}{color.reset}')
                 res += temp
                 buf = []
             res += [line]
@@ -95,7 +95,7 @@ def main():
         
         buf += [line]
         
-        if len(buf) < MAX_LINE_N:
+        if len(buf) < min(MAX_LINE_N, args.n):
             continue
 
         print(f'{args.src}:{i+1}')

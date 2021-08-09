@@ -1,7 +1,7 @@
-from typing import Union
-from random import randint
+from random import randint, seed
 from copy import deepcopy
 
+seed(a=0)
 class Operand:
     def __init__(self, name, is_reg=False, is_imm=False, is_dummy=False, val=None, bits: int = 64):
         self.name = name

@@ -2,7 +2,8 @@ from typing import Optional, Union
 from lark import Transformer
 from .line import Line
 from .operand import OperandDict
-from random import randint
+from random import randint, seed
+seed(0)
 
 class Simulator(Transformer):
     def __init__(self, op_dict: OperandDict) -> None:
@@ -62,13 +63,13 @@ class Simulator(Transformer):
         self.pc += 1
 
     def jz(self, tree):
-        if self.pc == 0:
+        if self.zf == 1:
             self.pc = tree[0]
         else:
             self.pc += 1
 
     def jnz(self, tree):
-        if self.pc == 1:
+        if self.zf == 0:
             self.pc = tree[0]
         else:
             self.pc += 1

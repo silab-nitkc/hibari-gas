@@ -1,6 +1,5 @@
 from .operand import Operand, OperandDict
 from .parser import Parser
-from random import randint
 from lark import Lark
 from os.path import dirname
 

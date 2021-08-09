@@ -1,8 +1,9 @@
 import z3
-from random import randint
+from random import randint, seed
 from . import operators
 from ..static import *
 
+seed(0)
 class Model:
     def __init__(self, ioe, PC_LEN, is_reg):
         """
