@@ -1,10 +1,5 @@
 # hibari
-[ [English](README.md) | [日本語](README.ja.md) ]
-
-Hibari is an experimental obfuscator for the assembly language, which aims to protect software against Man-at-the-end attacks.
-Hibari takes an assembly program (in the GNU assembler format) as input, and returns an obfuscated assembly program as output.
-In hibari, a code fragment (i.e., a sequence of instructions) included in the target program is replaced with a new code fragment that is described in another expression (probably complicated one) preserving its semantics.
-The code fragment is generated using an SMT solver Z3.
+SMTソルバによる命令列生成を用いた，GNU assemblerの難読化ツール．
 
 ## 仕組み
 入力されたGNU assemblerの各コード（命令列）に対して，以下の手順を繰り返し適用することで難読化を行う．
