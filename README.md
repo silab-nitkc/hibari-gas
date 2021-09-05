@@ -1,18 +1,13 @@
 # hibari
-SMTソルバによる命令列生成を用いた，GNU assemblerの難読化ツール．
+[ [English](README.md) | [日本語](README.ja.md) ]
 
-## 仕組み
-入力されたGNU assemblerの各コード（命令列）に対して，以下の手順を繰り返し適用することで難読化を行う．
+*hibari* is an experimental obfuscator for the assembly language, which aims to protect software against Man-at-the-end attacks.
+Hibari takes an assembly program (in the GNU assembler format) as input, and returns an obfuscated assembly program as output.
+In hibari, some code fragments included in the target program are replaced with *obscure* fragments, preserving their semantics. The obscure fragments are generated using an SMT solver Z3.
 
-1. 難読化対象コード（命令列）の入出力例を求める
-![docs/flow.pdf](docs/flow.svg)
-1. SMTソルバを用いて，入出力例を満たす任意長のコードを求める
-![docs/SMT-flow.pdf](docs/SMT-flow.svg)
-1. 得られた結果をもとにコードを生成する
-1. コードに対して多数の入出力例を用いたテストを行う．パスできなければ1.へ戻る．
-1. 難読化対象コードと生成されたコードを置換する
+(figure)
 
-## Requirement
+## Requirements
 * Python 3.9 (or higher)
 * z3py
 * lark-python
@@ -31,7 +26,7 @@ optional arguments:
   -l L        Number of instructions used for obfuscation.
 ```
 
-## Example
+### Example
 ```bash
-python obfuscator.py target.s -o out.s
+python3.9 obfuscator.py target.s -o out.s
 ```
