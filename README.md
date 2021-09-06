@@ -1,11 +1,9 @@
 # hibari
-[ [English](README.md) | [日本語](README.ja.md) ]
-
 *hibari* is an experimental obfuscator for the assembly language, which aims to protect software against Man-at-the-end attacks.
 Hibari takes an assembly program (in the GNU assembler format) as input, and returns an obfuscated assembly program as output.
 In hibari, some code fragments included in the target program are replaced with *obscure* fragments, preserving their semantics. The obscure fragments are generated using an SMT solver Z3.
 
-(figure)
+![figure](figure/fig1.svg)
 
 ## Requirements
 * Python 3.9 (or higher)
@@ -30,3 +28,6 @@ optional arguments:
 ```bash
 python3.9 obfuscator.py target.s -o out.s
 ```
+
+## Reference
+光本智洋，神崎雄一郎，``SMTソルバによる命令列生成を用いたアセンブリプログラムの難読化，'' 情報処理学会 第83回全国大会講演論文集 (講演番号2K-04)，2021年3月．
