@@ -3,8 +3,7 @@
 Hibari takes an assembly program (in the GNU assembler format) as input, and returns an obfuscated assembly program as output.
 In hibari, some code fragments included in the target program are replaced with *obscure* fragments, preserving their semantics. The obscure fragments are generated using an SMT solver Z3.
 
-![figure](figure/fig1.svg)
-
+<img src="figure/fig1.svg" width="480" >
 ## Requirements
 * Python 3.9 (or higher)
 * z3py
