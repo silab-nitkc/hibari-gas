@@ -1,5 +1,4 @@
 # hibari
-[ [English](README.md) | [日本語](README.ja.md) ]
 
 *hibari*は，Man-at-the-end攻撃からソフトウェアを保護することを目的とした難読化ツールです．
 GNU assembler形式のアセンブリプログラムを入力とし，
