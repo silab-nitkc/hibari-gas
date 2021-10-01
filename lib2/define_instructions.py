@@ -36,7 +36,7 @@ class AbstractInstruction(metaclass = ABCMeta):
         const = []
         inst: Instruction = self.instruction
         for i in range(2 ** REG_BITS):
-            const += [z3.If(z3.And(inst.src_is_immediate == 0, inst.dst == i), True, self.get_dst(next) == self.get_dst(current))]
+            const += [z3.If(z3.And(inst.src_is_immediate == 0, inst.dst == i), True, next.values[i] == current.values[i])]
         return const
 
 all: list[AbstractInstruction] = []

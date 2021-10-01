@@ -7,9 +7,9 @@ VAL_BITS = 8
 class State:
     _counter = 0
     def __init__(self) -> None:
-        self.values = z3.Array(f'State/{State._counter}/values/{id(self)}', z3.BitVecSort(REG_BITS), z3.BitVecSort(VAL_BITS))
-        self.pc = z3.BitVec(f'State/{State._counter}/pc/{id(self)}', PC_BITS)
-        self.zero_flag = z3.BitVec(f'State/{State._counter}/zero_flag/{id(self)}', 2)
+        self.values = z3.Array(f'State/{State._counter}/values', z3.BitVecSort(REG_BITS), z3.BitVecSort(VAL_BITS))
+        self.pc = z3.BitVec(f'State/{State._counter}/pc', PC_BITS)
+        self.zero_flag = z3.BitVec(f'State/{State._counter}/zero_flag', 2)
         State._counter += 1
     
     def set_values(self, values: list[int]):

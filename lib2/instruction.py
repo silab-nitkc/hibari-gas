@@ -11,11 +11,11 @@ class Instruction:
     def __init__(self, instructions: list) -> None:
         self.all_instructions = [instruction(self) for instruction in instructions]
 
-        self.op_id = z3.BitVec(f'Instruction/{Instruction._counter}/op_id/{id(self)}', OP_BITS)
-        self.dst = z3.BitVec(f'Instruction/{Instruction._counter}/dst/{id(self)}', REG_BITS)
-        self.src = z3.BitVec(f'Instruction/{Instruction._counter}/src/{id(self)}', REG_BITS)
-        self.src_is_immediate = z3.BitVec(f'Instruction/{Instruction._counter}/sii/{id(self)}', 1)
-        self.immediate = z3.BitVec(f'Instruction/{Instruction._counter}/imm/{id(self)}', VAL_BITS)
+        self.op_id = z3.BitVec(f'Instruction/{Instruction._counter}/op_id', OP_BITS)
+        self.dst = z3.BitVec(f'Instruction/{Instruction._counter}/dst', REG_BITS)
+        self.src = z3.BitVec(f'Instruction/{Instruction._counter}/src', REG_BITS)
+        self.src_is_immediate = z3.BitVec(f'Instruction/{Instruction._counter}/sii', 1)
+        self.immediate = z3.BitVec(f'Instruction/{Instruction._counter}/imm', VAL_BITS)
         Instruction._counter += 1
 
     def get_const(self, current: State, next: State):

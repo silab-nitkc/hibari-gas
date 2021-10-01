@@ -131,3 +131,5 @@ dmypy.json
 *.c
 *.s
 *.out
+
+Makefile
