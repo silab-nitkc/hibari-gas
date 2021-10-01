@@ -8,10 +8,8 @@ VAL_BITS = 8
 
 class Instruction:
     _counter = 0
-    def __init__(self, instructions: list, current: State, next: State) -> None:
-        self.current = current
-        self.next = next
-        self.all_instructions = [instruction(self, current, next) for instruction in instructions]
+    def __init__(self, instructions: list) -> None:
+        self.all_instructions = [instruction(self) for instruction in instructions]
 
         self.op_id = z3.BitVec(f'Instruction/{Instruction._counter}/op_id/{id(self)}', OP_BITS)
         self.dst = z3.BitVec(f'Instruction/{Instruction._counter}/dst/{id(self)}', REG_BITS)
@@ -20,6 +18,6 @@ class Instruction:
         self.immediate = z3.BitVec(f'Instruction/{Instruction._counter}/imm/{id(self)}', VAL_BITS)
         Instruction._counter += 1
 
-    def get_const(self):
-        return sum(map(lambda inst: inst.get_const(), self.all_instructions), [])
+    def get_const(self, current: State, next: State):
+        return sum(map(lambda inst: inst.get_const(current, next), self.all_instructions), [])
 

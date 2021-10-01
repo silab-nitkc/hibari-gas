@@ -3,6 +3,8 @@ import z3
 from state import State
 from instruction import Instruction
 
+REG_BITS = 2
+
 class AbstractInstruction(metaclass = ABCMeta):
     def __init__(self, instruction, current: State, next: State) -> None:
         self.instruction = instruction
@@ -35,7 +37,7 @@ class AbstractInstruction(metaclass = ABCMeta):
     def keep_values(self):
         const = []
         inst: Instruction = self.instruction
-        for i in range(len(self.current)):
+        for i in range(2 ** REG_BITS):
             const += [z3.If(z3.And(inst.src_is_immediate == 0, inst.dst == i), True, self.get_dst(self.next, inst) == self.get_dst(self.current, inst))]
         return const
 

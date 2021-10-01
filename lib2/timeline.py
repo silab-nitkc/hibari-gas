@@ -11,5 +11,3 @@ class Timeline:
         const = []
         const += [self.states[0].pc == 0]
         return const
-
-    def 
