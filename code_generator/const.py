@@ -1,0 +1,4 @@
+REG_BITS = 2
+OP_BITS = 4
+VAL_BITS = 8
+PC_BITS = 4
