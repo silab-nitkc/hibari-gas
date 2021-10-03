@@ -82,5 +82,80 @@ class Sub(AbstractInstruction):
 
 all += [Sub]
 
+class Xor(AbstractInstruction):
+    def get_id(self) -> int:
+        return 2
+
+    def get_const(self, current: State, next: State) -> list:
+        const: list = []
+
+        const += self.increment_pc(current, next)
+
+        const += [self.get_dst(next) ==
+                  self.get_dst(current) ^ self.get_src(current)]
+        const += self.keep_values(current, next)
+
+        const += self.set_zero_flag(self.get_dst(next), next)
+
+        return [z3.If(self.is_been_called(), z3.And(const), True)]
+
+all += [Xor]
+
+class Or(AbstractInstruction):
+    def get_id(self) -> int:
+        return 3
+
+    def get_const(self, current: State, next: State) -> list:
+        const: list = []
+
+        const += self.increment_pc(current, next)
+
+        const += [self.get_dst(next) ==
+                  self.get_dst(current) | self.get_src(current)]
+        const += self.keep_values(current, next)
+
+        const += self.set_zero_flag(self.get_dst(next), next)
+
+        return [z3.If(self.is_been_called(), z3.And(const), True)]
+
+all += [Or]
+
+class And(AbstractInstruction):
+    def get_id(self) -> int:
+        return 4
+
+    def get_const(self, current: State, next: State) -> list:
+        const: list = []
+
+        const += self.increment_pc(current, next)
+
+        const += [self.get_dst(next) ==
+                  self.get_dst(current) & self.get_src(current)]
+        const += self.keep_values(current, next)
+
+        const += self.set_zero_flag(self.get_dst(next), next)
+
+        return [z3.If(self.is_been_called(), z3.And(const), True)]
+
+all += [And]
+
+class Mov(AbstractInstruction):
+    def get_id(self) -> int:
+        return 5
+
+    def get_const(self, current: State, next: State) -> list:
+        const: list = []
+
+        const += self.increment_pc(current, next)
+
+        const += [self.get_dst(next) == self.get_src(current)]
+        const += self.keep_values(current, next)
+
+        const += [next.zero_flag == current.zero_flag]
+
+        return [z3.If(self.is_been_called(), z3.And(const), True)]
+
+all += [Mov]
+
 def get_pc_const(instruction: Instruction) -> list:
     return [instruction.op_id >= 0, instruction.op_id < len(all)]
