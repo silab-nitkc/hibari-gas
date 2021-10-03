@@ -25,3 +25,20 @@ class Instruction:
 
     def get_const(self, current: State, next: State):
         return sum(map(lambda inst: inst.get_const(current, next), self.all_instructions), [])
+    
+    def eval(self, model) -> dict:
+        res = {
+            "instruction_id": model.eval(self.op_id).as_long(),
+            "instruction": self.all_instructions[model.eval(self.op_id).as_long()].__class__.__name__,
+            "dst": model.eval(self.dst).as_long(),
+            "src_is_immediate": model.eval(self.src_is_immediate).as_long(),
+            "src": None,
+            "immediate": None,
+        }
+
+        if res["src_is_immediate"]:
+            res["immediate"] = model.eval(self.immediate).as_long()
+        else:
+            res["src"] = model.eval(self.src).as_long()
+
+        return res

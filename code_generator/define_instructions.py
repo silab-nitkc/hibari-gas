@@ -61,9 +61,26 @@ class Add(AbstractInstruction):
 
         return [z3.If(self.is_been_called(), z3.And(const), True)]
 
-
 all += [Add]
 
+class Sub(AbstractInstruction):
+    def get_id(self) -> int:
+        return 1
+
+    def get_const(self, current: State, next: State) -> list:
+        const: list = []
+
+        const += self.increment_pc(current, next)
+
+        const += [self.get_dst(next) ==
+                  self.get_dst(current) - self.get_src(current)]
+        const += self.keep_values(current, next)
+
+        const += self.set_zero_flag(self.get_dst(next), next)
+
+        return [z3.If(self.is_been_called(), z3.And(const), True)]
+
+all += [Sub]
 
 def get_pc_const(instruction: Instruction) -> list:
     return [instruction.op_id >= 0, instruction.op_id < len(all)]
