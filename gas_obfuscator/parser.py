@@ -1,71 +1,84 @@
 from lark import Transformer
+from .line import Line
+import sys
 
 class Parser(Transformer):
     # recursive execution count
     REC_COUNT: int = 0
-    def __init__(self, line):
+    def __init__(self, line: Line):
         super().__init__()
+        self.line = line
 
     def exp(self, tree):
         pass
 
     def arr_label(self, tree):
-        Parser.REC_COUNT += 1
+        pass
 
     def label(self, tree):
         self.line.label = str(tree[0])
 
     def add(self, tree):
-        self.line.op = 'add'
+        self.line.set_op(sys._getframe().f_code.co_name, tree)
 
     def sub(self, tree):
-        self.line.op = 'sub'
+        self.line.set_op(sys._getframe().f_code.co_name, tree)
     
     def xor(self, tree):
-        self.line.op = 'xor'
+        self.line.set_op(sys._getframe().f_code.co_name, tree)
     
     def and_(self, tree):
-        self.line.op = 'and'
+        self.line.set_op("and", tree)
     
     def or_(self, tree):
-        self.line.op = 'or'
+        self.line.set_op("or", tree)
     
     def mov(self, tree):
-        self.line.op = 'mov'
+        self.line.set_op(sys._getframe().f_code.co_name, tree)
     
     def jz(self, tree):
-        self.line.op = 'jz'
-        self.line.operands += [Operand(str(tree[0]))]
+        self.line.set_op(sys._getframe().f_code.co_name, tree)
     
     def jnz(self, tree):
-        self.line.op = 'jnz'
-        self.line.operands += [Operand(str(tree[0]))]
+        self.line.set_op(sys._getframe().f_code.co_name, tree)
 
-    def suffix(self, tree):
-        self.line.bits = self.suffix_to_int(tree[0])
-        self.line.suffix = tree[0]
+    def suffix(self, tree) -> str:
+        return str(tree[0])
 
-    def operand(self, tree):
+    def operand(self, tree) -> dict:
         return tree[0]
 
-    def x64register(self, tree):
-        self.line.operands += [Operand(str(tree[0]), is_reg=True, bits=64)]
-        return str(tree[0])
+    def x64register(self, tree) -> dict:
+        return {
+            "name": str(tree[0]),
+            "has_memory_ref": False,
+            "is_immediate": False,
+        }
 
-    def x32register(self, tree):
-        self.line.operands += [Operand(str(tree[0]), is_reg=True, bits=32)]
-        return str(tree[0])
+    def x32register(self, tree) -> dict:
+        return {
+            "name": str(tree[0]),
+            "has_memory_ref": False,
+            "is_immediate": False,
+        }
 
-    def name(self, tree):
-        self.line.operands += [Operand(str(tree[0]))]
-        return str(tree[0])
+    def name(self, tree) -> dict:
+        return {
+            "name": str(tree[0]),
+            "has_memory_ref": True,
+            "is_immediate": False,
+        }
     
-    def dummy(self, tree):
-        is_dummy = "R{}+".format(Parser.REC_COUNT) in tree[0]
-        self.line.operands += [Operand(str(tree[0]), is_dummy=is_dummy)]
-        return str(tree[0])
+    def dummy(self, tree) -> dict:
+        return {
+            "name": str(tree[0]),
+            "has_memory_ref": True,
+            "is_immediate": False,
+        }
 
-    def immidiate(self, tree):
-        self.line.operands += [Operand(int(tree[0]),
-                                       is_imm=True, val=int(tree[0]))]
-        return int(tree[0])
+    def immidiate(self, tree) -> dict:
+        return {
+            "name": str(tree[0]),
+            "has_memory_ref": False,
+            "is_immediate": True,
+        }
