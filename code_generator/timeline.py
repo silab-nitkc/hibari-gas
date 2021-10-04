@@ -11,4 +11,5 @@ class Timeline:
     def get_const(self) -> list:
         const = []
         const += [self.states[0].pc == 0]
+        const += [self.states[-1].pc == len(self.states) - 1]
         return const

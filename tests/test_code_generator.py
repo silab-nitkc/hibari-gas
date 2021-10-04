@@ -28,8 +28,6 @@ class TestInstructionSequenceGenerator(unittest.TestCase):
         const += inst_seq.instructions[0].get_const(
             tl2.get_state(0), tl2.get_state(1))
 
-        const += get_pc_const(inst_seq.instructions[0])
-
         sl = z3.Solver()
         sl.add(const)
         sl.check()
@@ -64,8 +62,6 @@ class TestInstructionSequenceGenerator(unittest.TestCase):
         const += tl2.get_const()
         const += inst_seq.instructions[0].get_const(
             tl2.get_state(0), tl2.get_state(1))
-
-        const += get_pc_const(inst_seq.instructions[0])
 
         sl = z3.Solver()
         sl.add(const)
@@ -102,8 +98,6 @@ class TestInstructionSequenceGenerator(unittest.TestCase):
         const += inst_seq.instructions[0].get_const(
             tl2.get_state(0), tl2.get_state(1))
 
-        const += get_pc_const(inst_seq.instructions[0])
-
         sl = z3.Solver()
         sl.add(const)
         sl.check()
@@ -138,8 +132,6 @@ class TestInstructionSequenceGenerator(unittest.TestCase):
         const += tl2.get_const()
         const += inst_seq.instructions[0].get_const(
             tl2.get_state(0), tl2.get_state(1))
-
-        const += get_pc_const(inst_seq.instructions[0])
 
         sl = z3.Solver()
         sl.add(const)
@@ -176,8 +168,6 @@ class TestInstructionSequenceGenerator(unittest.TestCase):
         const += inst_seq.instructions[0].get_const(
             tl2.get_state(0), tl2.get_state(1))
 
-        const += get_pc_const(inst_seq.instructions[0])
-
         sl = z3.Solver()
         sl.add(const)
         sl.check()
@@ -212,8 +202,6 @@ class TestInstructionSequenceGenerator(unittest.TestCase):
         const += tl2.get_const()
         const += inst_seq.instructions[0].get_const(
             tl2.get_state(0), tl2.get_state(1))
-
-        const += get_pc_const(inst_seq.instructions[0])
 
         sl = z3.Solver()
         sl.add(const)
@@ -250,8 +238,6 @@ class TestInstructionSequenceGenerator(unittest.TestCase):
         const += inst_seq.instructions[0].get_const(
             tl2.get_state(0), tl2.get_state(1))
 
-        const += get_pc_const(inst_seq.instructions[0])
-
         sl = z3.Solver()
         sl.add(const)
         sl.check()
@@ -286,8 +272,6 @@ class TestInstructionSequenceGenerator(unittest.TestCase):
         const += tl2.get_const()
         const += inst_seq.instructions[0].get_const(
             tl2.get_state(0), tl2.get_state(1))
-
-        const += get_pc_const(inst_seq.instructions[0])
 
         sl = z3.Solver()
         sl.add(const)

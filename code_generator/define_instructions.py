@@ -157,5 +157,3 @@ class Mov(AbstractInstruction):
 
 all += [Mov]
 
-def get_pc_const(instruction: Instruction) -> list:
-    return [instruction.op_id >= 0, instruction.op_id < len(all)]

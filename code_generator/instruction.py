@@ -24,7 +24,9 @@ class Instruction:
         Instruction._counter += 1
 
     def get_const(self, current: State, next: State):
-        return sum(map(lambda inst: inst.get_const(current, next), self.all_instructions), [])
+        const = sum(map(lambda inst: inst.get_const(current, next), self.all_instructions), [])
+        const += [self.op_id >= 0, self.op_id < len(self.all_instructions)]
+        return const
     
     def eval(self, model) -> dict:
         res = {
