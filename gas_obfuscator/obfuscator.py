@@ -1,3 +1,4 @@
+from gas_obfuscator.generator import GASGenerator
 from .parser import parse, Parser
 from .line import Line
 from .simulator import Simulator
@@ -24,7 +25,6 @@ class Obfuscator:
         for line in self.lines:
             if line.is_obfuscatable(self.all_instructions):
                 target_list += [line]
-                continue
             elif len(target_list):
                 res += self.obfuscate(target_list, inst_N, tl_N)
                 target_list = []
@@ -73,5 +73,6 @@ class Obfuscator:
         result: list[dict] = []
         for inst in inst_seq.instructions:
             result += [inst.eval(m)]
-
-        return result
+        generator: GASGenerator = GASGenerator(
+            list(operands.keys()), "q")
+        return generator.generate_GAS(result)

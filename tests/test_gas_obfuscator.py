@@ -32,7 +32,7 @@ class TestGASObfuscator(unittest.TestCase):
         """
 
         obfuscator: Obfuscator = Obfuscator(target, ["add", "sub"])
-        print(obfuscator.run(2, inst_N=1, tl_N=2))
+        print(obfuscator.run(MAX_LINE_N=1, inst_N=1, tl_N=2))
 
 
 if __name__ == "__main__":
