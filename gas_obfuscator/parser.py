@@ -1,9 +1,11 @@
 from lark import Transformer, Lark
 from .line import Line
-import os, sys
+import os
+import sys
 
 with open(os.path.dirname(__file__) + '/../gas_obfuscator/gas.lark', encoding="utf-8") as g:
     lark_parser = Lark(g.read(), start="exp")
+
 
 def parse(raw):
     try:
@@ -13,6 +15,7 @@ def parse(raw):
         return res
     except:
         return Line(raw)
+
 
 class Parser(Transformer):
     dummies = []
@@ -36,22 +39,22 @@ class Parser(Transformer):
 
     def sub(self, tree):
         self.line.set_op(sys._getframe().f_code.co_name, tree)
-    
+
     def xor(self, tree):
         self.line.set_op(sys._getframe().f_code.co_name, tree)
-    
+
     def and_(self, tree):
         self.line.set_op("and", tree)
-    
+
     def or_(self, tree):
         self.line.set_op("or", tree)
-    
+
     def mov(self, tree):
         self.line.set_op(sys._getframe().f_code.co_name, tree)
-    
+
     def jz(self, tree):
         self.line.set_op(sys._getframe().f_code.co_name, tree)
-    
+
     def jnz(self, tree):
         self.line.set_op(sys._getframe().f_code.co_name, tree)
 

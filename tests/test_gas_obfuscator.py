@@ -2,12 +2,14 @@ import unittest
 import sys
 import os
 from lark import Lark
-import os, sys
+import os
+import sys
 
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..')))
 
-from gas_obfuscator import *  # nopep
+from gas_obfuscator import *  # noqa
+
 
 class TestGASObfuscator(unittest.TestCase):
     def test_initialize(self):
@@ -18,6 +20,7 @@ class TestGASObfuscator(unittest.TestCase):
         """
 
         obfuscator: Obfuscator = Obfuscator(target)
-        
+
+
 if __name__ == "__main__":
     unittest.main()

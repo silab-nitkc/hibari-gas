@@ -6,7 +6,8 @@ import os
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..')))
 
-from code_generator import * #nopep
+from code_generator import *  # noqa
+
 
 class TestInstructionSequenceGenerator(unittest.TestCase):
     def test_generate_add(self):
@@ -253,7 +254,7 @@ class TestInstructionSequenceGenerator(unittest.TestCase):
         }
         result = inst_seq.instructions[0].eval(m)
         self.assertEqual(expected, result)
-    
+
     def test_generate_mov(self):
         const = []
         inst_seq = InstructionSequence()
@@ -288,6 +289,7 @@ class TestInstructionSequenceGenerator(unittest.TestCase):
         }
         result = inst_seq.instructions[0].eval(m)
         self.assertEqual(expected, result)
+
 
 if __name__ == "__main__":
     unittest.main()

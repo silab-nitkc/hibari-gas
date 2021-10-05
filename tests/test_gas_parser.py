@@ -2,21 +2,24 @@ import unittest
 import sys
 import os
 from lark import Lark
-import os, sys
+import os
+import sys
 
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..')))
 
-from gas_obfuscator import *  # nopep
+from gas_obfuscator import *  # noqa
 
 with open(os.path.dirname(__file__) + '/../gas_obfuscator/gas.lark', encoding="utf-8") as g:
     lark_parser = Lark(g.read(), start="exp")
+
 
 def parse(raw):
     res: Line = Line(raw)
     tree = lark_parser.parse(raw)
     Parser(res).transform(tree)
     return res
+
 
 class TestGASParser(unittest.TestCase):
     def test_parse_add(self):
@@ -54,7 +57,7 @@ class TestGASParser(unittest.TestCase):
             "suffix": None,
         }
         self.assertEqual(res.__dict__, expected)
-    
+
     def test_parse_define_label(self):
         target: str = r"R12345:  .space 160"
 
@@ -72,6 +75,7 @@ class TestGASParser(unittest.TestCase):
             "suffix": None,
         }
         self.assertEqual(res.__dict__, expected)
+
 
 if __name__ == "__main__":
     unittest.main()
