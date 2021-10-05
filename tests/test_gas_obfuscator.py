@@ -21,6 +21,19 @@ class TestGASObfuscator(unittest.TestCase):
 
         obfuscator: Obfuscator = Obfuscator(target)
 
+    def test_initialize(self):
+        target: str = """
+            dummy: .space 160
+
+            addq $12, %rax
+            subq $12, %rax
+            test hoge
+            movq $12, %rax
+        """
+
+        obfuscator: Obfuscator = Obfuscator(target, ["add", "sub"])
+        print(obfuscator.run(2))
+
 
 if __name__ == "__main__":
     unittest.main()

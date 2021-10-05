@@ -15,10 +15,13 @@ with open(os.path.dirname(__file__) + '/../gas_obfuscator/gas.lark', encoding="u
 
 
 def parse(raw):
-    res: Line = Line(raw)
-    tree = lark_parser.parse(raw)
-    Parser(res).transform(tree)
-    return res
+    try:
+        res: Line = Line(raw)
+        tree = lark_parser.parse(raw)
+        Parser(res).transform(tree)
+        return res
+    except:
+        return Line(raw)
 
 
 class TestGASParser(unittest.TestCase):
@@ -75,6 +78,24 @@ class TestGASParser(unittest.TestCase):
             "suffix": None,
         }
         self.assertEqual(res.__dict__, expected)
+
+    def test_list_operands(self):
+        target: list[str] = """
+            dummy: .space 160
+
+            addq $12, %rax
+            subq $12, %rax
+            movq $12, %rax
+        """.split("\n")
+
+        temp: list[Line] = list(map(parse, target))
+        res: dict = Line.get_operands(temp)
+
+        expected: dict = {
+            "dummy": None,
+            r"%rax": None,
+        }
+        self.assertEqual(res, expected)
 
 
 if __name__ == "__main__":

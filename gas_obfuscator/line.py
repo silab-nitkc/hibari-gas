@@ -1,3 +1,4 @@
+from __future__ import annotations
 from lark import Lark
 
 
@@ -34,3 +35,22 @@ class Line:
         self.suffix = tree[0]
         self.set_src(**tree[1])
         self.set_dst(**tree[2])
+
+    def is_obfuscatable(self, all_instructions: list[str]):
+        if self.op not in all_instructions:
+            return False
+        return True
+
+    @staticmethod
+    def get_operands(lines: list[__class__]) -> dict:
+        res: dict = {}
+        for line in lines:
+            # None（未設定）もありえるので is False を使う
+            if line.src_is_immediate is False:
+                res[line.src] = None
+            if line.dst is not None:
+                res[line.dst] = None
+            if line.label is not None:
+                res[line.label] = None
+
+        return res
