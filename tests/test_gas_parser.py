@@ -13,13 +13,10 @@ with open(os.path.dirname(__file__) + '/../gas_obfuscator/gas.lark', encoding="u
     lark_parser = Lark(g.read(), start="exp")
 
 def parse(raw):
-    try:
-        res: Line = Line(raw)
-        tree = lark_parser.parse(raw)
-        Parser(res).transform(tree)
-        return res
-    except:
-        return Line('')
+    res: Line = Line(raw)
+    tree = lark_parser.parse(raw)
+    Parser(res).transform(tree)
+    return res
 
 class TestGASParser(unittest.TestCase):
     def test_parse_add(self):
@@ -37,6 +34,42 @@ class TestGASParser(unittest.TestCase):
             "immediate": 12,
             "label": None,
             "suffix": "q"
+        }
+        self.assertEqual(res.__dict__, expected)
+
+    def test_parse_label(self):
+        target: str = r"label123:"
+
+        res: Line = parse(target)
+        expected: dict = {
+            "raw": target,
+            "op": None,
+            "dst": None,
+            "dst_has_memory_ref": None,
+            "src": None,
+            "src_has_memory_ref": None,
+            "src_is_immediate": None,
+            "immediate": None,
+            "label": "label123",
+            "suffix": None,
+        }
+        self.assertEqual(res.__dict__, expected)
+    
+    def test_parse_define_label(self):
+        target: str = r"R12345:  .space 160"
+
+        res: Line = parse(target)
+        expected: dict = {
+            "raw": target,
+            "op": None,
+            "dst": None,
+            "dst_has_memory_ref": None,
+            "src": None,
+            "src_has_memory_ref": None,
+            "src_is_immediate": None,
+            "immediate": None,
+            "label": "R12345",
+            "suffix": None,
         }
         self.assertEqual(res.__dict__, expected)
 

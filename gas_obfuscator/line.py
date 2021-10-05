@@ -5,6 +5,7 @@ class Line:
     def __init__(self, raw):
         self.raw = raw
         self.op = None
+        self.suffix = None
 
         self.dst: str = None
         self.dst_has_memory_ref: bool = None

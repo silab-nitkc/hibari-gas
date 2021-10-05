@@ -1,7 +1,7 @@
 %ignore " " | /\t/
 
 exp			: label 
-			| arr_label
+			| define_dummy
 			| add
 			| sub
 			| xor
@@ -11,7 +11,7 @@ exp			: label
 			| jz
 			| jnz
 
-arr_label	: label ".space 160"
+define_dummy: name ":" ".space 160"
 label		: name ":"
 
 add			: "add" suffix operand "," operand
@@ -29,7 +29,6 @@ suffix		: /q/
 operand		: x64register
 			| x32register
 			| name
-			| dummy
 			| immidiate
 
 x64register	: /%rax/
@@ -39,5 +38,4 @@ x32register	: /%eax/
 			| /%edx/
 
 name		: /[0-9a-zA-Z]+/
-dummy		: /R[0-9]+\+[0-9]+\*8\(%rip\)/
 immidiate	: "$" /\d+/

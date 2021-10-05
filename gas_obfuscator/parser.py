@@ -1,22 +1,35 @@
-from lark import Transformer
+from lark import Transformer, Lark
 from .line import Line
-import sys
+import os, sys
+
+with open(os.path.dirname(__file__) + '/../gas_obfuscator/gas.lark', encoding="utf-8") as g:
+    lark_parser = Lark(g.read(), start="exp")
+
+def parse(raw):
+    try:
+        res: Line = Line(raw)
+        tree = lark_parser.parse(raw)
+        Parser(res).transform(tree)
+        return res
+    except:
+        return Line(raw)
 
 class Parser(Transformer):
-    # recursive execution count
-    REC_COUNT: int = 0
+    dummies = []
+
     def __init__(self, line: Line):
         super().__init__()
-        self.line = line
+        self.line: Line = line
 
     def exp(self, tree):
         pass
 
-    def arr_label(self, tree):
-        pass
+    def define_dummy(self, tree):
+        Parser.dummies += [tree[0]["name"]]
+        self.line.label = tree[0]["name"]
 
     def label(self, tree):
-        self.line.label = str(tree[0])
+        self.line.label = tree[0]["name"]
 
     def add(self, tree):
         self.line.set_op(sys._getframe().f_code.co_name, tree)
@@ -63,13 +76,6 @@ class Parser(Transformer):
         }
 
     def name(self, tree) -> dict:
-        return {
-            "name": str(tree[0]),
-            "has_memory_ref": True,
-            "is_immediate": False,
-        }
-    
-    def dummy(self, tree) -> dict:
         return {
             "name": str(tree[0]),
             "has_memory_ref": True,
