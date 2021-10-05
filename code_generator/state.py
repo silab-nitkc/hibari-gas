@@ -13,4 +13,10 @@ class State:
         State._counter += 1
 
     def set_values(self, values: list[int]):
-        return list(map(lambda val: val[0] == val[1], zip(self.values, values)))
+        res: list = []
+        for value, init in zip(self.values, values):
+            if init is None:
+                continue
+            res += [value == init]
+
+        return res

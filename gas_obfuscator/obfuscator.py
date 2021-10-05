@@ -17,7 +17,7 @@ class Obfuscator:
         self.lines: list[Line] = list(map(parse, raw.split("\n")))
         self.all_instructions: list[str] = all_instructions
 
-    def run(self, MAX_LINE_N: int = 1) -> str:
+    def run(self, MAX_LINE_N: int = 1, inst_N: int = 5, tl_N: int = 2) -> str:
         target_list: list[Line] = []
         res: list[str] = []
 
@@ -26,11 +26,11 @@ class Obfuscator:
                 target_list += [line]
                 continue
             elif len(target_list):
-                res += self.obfuscate(target_list, 5, 2)
+                res += self.obfuscate(target_list, inst_N, tl_N)
                 target_list = []
 
             if len(target_list) >= MAX_LINE_N:
-                res += self.obfuscate(target_list, 5, 2)
+                res += self.obfuscate(target_list, inst_N, tl_N)
                 target_list = []
             else:
                 res += [line.raw]
@@ -69,6 +69,7 @@ class Obfuscator:
             print("unsat!")
             return lines
 
+        m = sl.model()
         result: list[dict] = []
         for inst in inst_seq.instructions:
             result += [inst.eval(m)]
