@@ -57,7 +57,7 @@ class Obfuscator:
                                      [None for i in range(2**REG_BITS)])[:2**REG_BITS]
 
             tl: Timeline = Timeline(inst_N+1)
-            const += tl.get_state(0).set_values(in_values)
+            const += tl.get_state(0).set_values(in_values, randomize=True)
             const += tl.get_state(inst_N).set_values(out_values)
             const += tl.get_const()
             const += inst_seq.instructions[0].get_const(
@@ -70,9 +70,9 @@ class Obfuscator:
             return lines
 
         m = sl.model()
-        result: list[dict] = []
-        for inst in inst_seq.instructions:
-            result += [inst.eval(m)]
-        generator: GASGenerator = GASGenerator(
-            list(operands.keys()), "q")
-        return generator.generate_GAS(result)
+        generated_instructions: list[dict] = list(
+            map(lambda inst: inst.eval(m), inst_seq.instructions))
+        print(generated_instructions[0])
+        generated_lines: list[Line] = Line.convert_to_lines(
+            generated_instructions, list(operands.keys()))
+        return [i.raw for i in generated_lines]

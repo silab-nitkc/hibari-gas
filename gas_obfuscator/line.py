@@ -1,10 +1,9 @@
 from __future__ import annotations
-from lark import Lark
 
 
 class Line:
-    def __init__(self, raw):
-        self.raw = raw
+    def __init__(self, raw: str):
+        self.raw: str = raw
         self.op = None
         self.suffix = None
 
@@ -22,13 +21,13 @@ class Line:
         self.dst = name
         self.dst_has_memory_ref = has_memory_ref
 
-    def set_src(self, name: str, has_memory_ref: bool, is_immediate: bool, **other: dict):
+    def set_src(self, name: str, has_memory_ref: bool, is_immediate: bool, immediate: int, **other: dict):
         self.src = name
         self.src_has_memory_ref = has_memory_ref
         self.src_is_immediate = is_immediate
 
         if self.src_is_immediate:
-            self.immediate = int(self.src)
+            self.immediate = immediate
 
     def set_op(self, name: str, tree: list):
         self.op = name
@@ -41,16 +40,55 @@ class Line:
             return False
         return True
 
+    def update_raw(self) -> None:
+        if self.op in ["add", "sub", "xor", "or", "and", "mov"]:
+            if self.src_is_immediate:
+                self.raw = f'{self.op}{self.suffix} ${self.immediate}, {self.dst}'
+                return
+            else:
+                self.raw = f'{self.op}{self.suffix} {self.src}, {self.dst}'
+                return
+
     @staticmethod
     def get_operands(lines: list[__class__]) -> dict:
         res: dict = {}
         for line in lines:
             # None（未設定）もありえるので is False を使う
+
             if line.src_is_immediate is False:
                 res[line.src] = None
+
             if line.dst is not None:
                 res[line.dst] = None
+
             if line.label is not None:
                 res[line.label] = None
 
         return res
+
+    @staticmethod
+    def _convert_to_line(instruction: dict, operands: list[str]) -> __class__:
+        res: __class__ = Line("")
+        print(instruction["src"])
+        temp: list = [
+            "q",
+            {
+                "name": operands[instruction["src"]] if instruction["src"] is not None else None,
+                "has_memory_ref": None,
+                "is_immediate": instruction["src_is_immediate"] == 1,
+                "immediate": instruction["immediate"]
+            },
+            {
+                "name": operands[instruction["dst"]],
+
+                "has_memory_ref": None,
+
+            }
+        ]
+        res.set_op(instruction["instruction"], temp)
+        res.update_raw()
+        return res
+
+    @staticmethod
+    def convert_to_lines(instructions: list[dict], operands: list[str]) -> list[__class__]:
+        return [Line._convert_to_line(i, operands) for i in instructions]

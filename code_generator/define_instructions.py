@@ -36,8 +36,8 @@ class AbstractInstruction(metaclass=ABCMeta):
         const = []
         inst: Instruction = self.instruction
         for i in range(2 ** REG_BITS):
-            const += [z3.If(z3.And(inst.src_is_immediate == 0, inst.dst ==
-                            i), True, next.values[i] == current.values[i])]
+            const += [z3.If(inst.dst == i, True, next.values[i]
+                            == current.values[i])]
         return const
 
 
@@ -61,7 +61,9 @@ class Add(AbstractInstruction):
 
         return [z3.If(self.is_been_called(), z3.And(const), True)]
 
+
 all += [Add]
+
 
 class Sub(AbstractInstruction):
     def get_id(self) -> int:
@@ -80,7 +82,9 @@ class Sub(AbstractInstruction):
 
         return [z3.If(self.is_been_called(), z3.And(const), True)]
 
+
 all += [Sub]
+
 
 class Xor(AbstractInstruction):
     def get_id(self) -> int:
@@ -99,7 +103,9 @@ class Xor(AbstractInstruction):
 
         return [z3.If(self.is_been_called(), z3.And(const), True)]
 
+
 all += [Xor]
+
 
 class Or(AbstractInstruction):
     def get_id(self) -> int:
@@ -118,7 +124,9 @@ class Or(AbstractInstruction):
 
         return [z3.If(self.is_been_called(), z3.And(const), True)]
 
+
 all += [Or]
+
 
 class And(AbstractInstruction):
     def get_id(self) -> int:
@@ -137,7 +145,9 @@ class And(AbstractInstruction):
 
         return [z3.If(self.is_been_called(), z3.And(const), True)]
 
+
 all += [And]
+
 
 class Mov(AbstractInstruction):
     def get_id(self) -> int:
@@ -155,5 +165,5 @@ class Mov(AbstractInstruction):
 
         return [z3.If(self.is_been_called(), z3.And(const), True)]
 
-all += [Mov]
 
+all += [Mov]

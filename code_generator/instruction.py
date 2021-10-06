@@ -24,14 +24,15 @@ class Instruction:
         Instruction._counter += 1
 
     def get_const(self, current: State, next: State):
-        const = sum(map(lambda inst: inst.get_const(current, next), self.all_instructions), [])
+        const = sum(map(lambda inst: inst.get_const(
+            current, next), self.all_instructions), [])
         const += [self.op_id >= 0, self.op_id < len(self.all_instructions)]
         return const
-    
+
     def eval(self, model) -> dict:
         res = {
             "instruction_id": model.eval(self.op_id).as_long(),
-            "instruction": self.all_instructions[model.eval(self.op_id).as_long()].__class__.__name__,
+            "instruction": self.all_instructions[model.eval(self.op_id).as_long()].__class__.__name__.lower(),
             "dst": model.eval(self.dst).as_long(),
             "src_is_immediate": model.eval(self.src_is_immediate).as_long(),
             "src": None,

@@ -87,7 +87,8 @@ class Parser(Transformer):
 
     def immidiate(self, tree) -> dict:
         return {
-            "name": str(tree[0]),
+            "name": None,
             "has_memory_ref": False,
             "is_immediate": True,
+            "immediate": int(tree[0])
         }

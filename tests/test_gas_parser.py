@@ -34,7 +34,7 @@ class TestGASParser(unittest.TestCase):
             "op": "add",
             "dst": r"%rax",
             "dst_has_memory_ref": False,
-            "src": "12",
+            "src": None,
             "src_has_memory_ref": False,
             "src_is_immediate": True,
             "immediate": 12,

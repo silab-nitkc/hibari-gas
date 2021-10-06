@@ -26,13 +26,11 @@ class TestGASObfuscator(unittest.TestCase):
             dummy: .space 160
 
             addq $12, %rax
-            subq $12, %rax
-            test hoge
-            movq $12, %rax
+            subq $3, %rax
         """
 
         obfuscator: Obfuscator = Obfuscator(target, ["add", "sub"])
-        print(obfuscator.run(MAX_LINE_N=1, inst_N=1, tl_N=2))
+        print('generated', obfuscator.run(MAX_LINE_N=1, inst_N=1, tl_N=2))
 
 
 if __name__ == "__main__":
