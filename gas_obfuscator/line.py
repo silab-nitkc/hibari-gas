@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from libs import static
+
 
 class Line:
     def __init__(self, raw: str):
@@ -67,11 +69,10 @@ class Line:
         return res
 
     @staticmethod
-    def _convert_to_line(instruction: dict, operands: list[str]) -> __class__:
+    def _convert_to_line(instruction: dict, operands: list[str], suffix: str) -> __class__:
         res: __class__ = Line("")
-        print(instruction["src"])
         temp: list = [
-            "q",
+            suffix,
             {
                 "name": operands[instruction["src"]] if instruction["src"] is not None else None,
                 "has_memory_ref": None,
@@ -90,5 +91,15 @@ class Line:
         return res
 
     @staticmethod
-    def convert_to_lines(instructions: list[dict], operands: list[str]) -> list[__class__]:
-        return [Line._convert_to_line(i, operands) for i in instructions]
+    def convert_to_lines(instructions: list[dict], operands: list[str], suffix: str) -> list[__class__]:
+        return [Line._convert_to_line(i, operands, suffix) for i in instructions]
+
+    @staticmethod
+    def get_operands_with_memory_ref(lines: list[__class__]) -> dict:
+        operands = Line.get_operands(lines)
+        for line in lines:
+            if line.src in operands:
+                operands[line.src] = line.src_has_memory_ref
+            if line.dst in operands:
+                operands[line.dst] = line.dst_has_memory_ref
+        return operands
