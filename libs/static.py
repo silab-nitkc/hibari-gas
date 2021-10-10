@@ -1,2 +1,0 @@
-REG_BITS = 2
-VAL_BITS = 8

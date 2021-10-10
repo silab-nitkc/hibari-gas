@@ -1,7 +1,7 @@
 %ignore " " | /\t/
 
 exp			: label 
-			| arr_label
+			| define_dummy
 			| add
 			| sub
 			| xor
@@ -11,8 +11,8 @@ exp			: label
 			| jz
 			| jnz
 
-arr_label	: label ".space 160"
-label		: /[0-9a-zA-Z_]+/ ":"
+define_dummy: name ":" ".space 160"
+label		: name ":"
 
 add			: "add" suffix operand "," operand
 sub			: "sub" suffix operand "," operand
@@ -20,8 +20,8 @@ xor			: "xor" suffix operand "," operand
 and_		: "and" suffix operand "," operand
 or_			: "or"  suffix operand "," operand
 mov			: "mov" suffix operand "," operand
-jz			: "jz"  /[+-]?[0-9a-zA-Z_]+/
-jnz			: "jnz" /[+-]?[0-9a-zA-Z_]+/
+jz			: "jz"  name
+jnz			: "jnz" name
 
 suffix		: /q/ 
 			| /l/
@@ -39,5 +39,5 @@ x32register	: /%eax/
 			| /%edx/
 
 name		: /[0-9a-zA-Z]+/
-dummy		: /R[0-9]+\+[0-9]+\*8\(%rip\)/
+dummy		: /[a-zA-Z]+\+[0-9]+\*8\(%rip\)/
 immidiate	: "$" /\d+/
