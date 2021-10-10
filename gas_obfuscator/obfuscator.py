@@ -21,11 +21,14 @@ class Obfuscator:
         self.all_instructions: list[str] = all_instructions
         self.label_name = self._get_label_name()
 
-    def run(self, MAX_LINE_N: int = 1, inst_N: int = 5, tl_N: int = 2) -> str:
+    def run(self, MAX_LINE_N: int = 1, inst_N: int = 5, tl_N: int = 2, use_range_divider: bool = False) -> str:
         target_list: list[Line] = []
         res: list[str] = []
         res += [f".data"]
         res += [f"{self.label_name}: .space 160"]
+
+        if use_range_divider:
+            self.lines = self._insert_branches(MAX_LINE_N)
 
         for line in self.lines:
             if line.is_obfuscatable(self.all_instructions):
@@ -112,3 +115,35 @@ class Obfuscator:
                     res += [z3.If(inst.dst == i,
                                   inst.src_is_immediate == 0, True)]
         return res
+
+    def _insert_branches(self, MAX_LINE_N) -> list[Line]:
+        """Range divider用の条件分岐を自動挿入する"""
+        res: list[str] = []
+        target_list: list[str] = []
+        branch_format: str = \
+            """jz   {label}
+{raw}
+jmp {end_label}
+{label}:
+{raw}
+{end_label}:
+"""
+        for line in self.lines:
+            if line.is_obfuscatable(self.all_instructions):
+                target_list += [line.raw]
+                if len(target_list) >= MAX_LINE_N:
+                    raw: str = '\n'.join(target_list)
+                    branch_str: str = branch_format.format(
+                        label=self._get_label_name(), end_label=self._get_label_name(), raw=raw)
+                    res += branch_str.split('\n')
+                target_list = []
+            elif len(target_list):
+                raw: str = '\n'.join(target_list)
+                print(raw)
+                branch_str: str = branch_format.format(
+                    label=self._get_label_name(), end_label=self._get_label_name(), raw=raw)
+                res += branch_str.split('\n')
+                target_list = []
+            else:
+                res += [line.raw]
+        return list(map(parse, res))

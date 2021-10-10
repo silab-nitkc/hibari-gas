@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from libs import static
-
 
 class Line:
     def __init__(self, raw: str):
