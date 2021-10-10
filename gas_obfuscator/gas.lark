@@ -29,6 +29,7 @@ suffix		: /q/
 operand		: x64register
 			| x32register
 			| name
+			| dummy
 			| immidiate
 
 x64register	: /%rax/
@@ -38,4 +39,5 @@ x32register	: /%eax/
 			| /%edx/
 
 name		: /[0-9a-zA-Z]+/
+dummy		: /[a-zA-Z]+\+[0-9]+\*8\(%rip\)/
 immidiate	: "$" /\d+/

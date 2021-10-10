@@ -85,6 +85,13 @@ class Parser(Transformer):
             "is_immediate": False,
         }
 
+    def dummy(self, tree) -> dict:
+        return {
+            "name": str(tree[0]),
+            "has_memory_ref": True,
+            "is_immediate": False,
+        }
+
     def immidiate(self, tree) -> dict:
         return {
             "name": None,

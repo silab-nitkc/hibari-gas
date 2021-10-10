@@ -44,7 +44,7 @@ class Obfuscator:
 
     def obfuscate(self, lines: list[Line], inst_N: int, tl_N: int) -> list[str]:
         simulator: Simulator = Simulator(lines)
-
+        print([l.raw for l in lines])
         const: list = []
         inst_seq = InstructionSequence()
         for i in range(inst_N):
@@ -76,7 +76,7 @@ class Obfuscator:
         sl.add(const)
         if sl.check() == z3.unsat:
             print("unsat!")
-            return lines
+            return [l.raw for l in lines]
 
         m = sl.model()
         generated_instructions: list[dict] = list(
@@ -102,10 +102,13 @@ class Obfuscator:
 
         res = []
         for i in range(2**REG_BITS):
-            if not has_memory_ref[i]:
-                continue
             for j in range(2**REG_BITS):
-                if has_memory_ref[j]:
-                    res += [inst.src != j]
-        print(res)
+                # メモリ参照のある変数同士の演算は禁止する
+                if has_memory_ref[i] and has_memory_ref[j]:
+                    res += [z3.Not(z3.And(inst.dst == i, inst.src ==
+                                   j, inst.src_is_immediate == 0))]
+                # 代入先がレジスタの場合は即値の代入を禁止する（なるべく演算を複雑化したい）
+                elif not has_memory_ref[i]:
+                    res += [z3.If(inst.dst == i,
+                                  inst.src_is_immediate == 0, True)]
         return res

@@ -40,7 +40,7 @@ class Instruction:
         }
 
         if res["src_is_immediate"]:
-            res["immediate"] = model.eval(self.immediate).as_long()
+            res["immediate"] = model.eval(self.immediate).as_signed_long()
         else:
             res["src"] = model.eval(self.src).as_long()
 
