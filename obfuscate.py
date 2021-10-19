@@ -7,7 +7,7 @@ def main():
     parser.add_argument('src', help='Path of input file.')
     parser.add_argument('-o', help='Path of output file.', default='res.s')
     parser.add_argument(
-        '-n', help='Maximum number of lines to obfuscate at once.', default=1, type=int)
+        '-n', help='[Experimental] Maximum number of lines to obfuscate at once.', default=1, type=int)
     parser.add_argument(
         '-l', help='Number of instructions used for obfuscation.', default=5, type=int)
     parser.add_argument('--rangediv', action="store_true",

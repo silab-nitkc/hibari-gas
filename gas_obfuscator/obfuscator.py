@@ -136,7 +136,7 @@ jmp {end_label}
                     branch_str: str = branch_format.format(
                         label=self._get_label_name(), end_label=self._get_label_name(), raw=raw)
                     res += branch_str.split('\n')
-                target_list = []
+                    target_list = []
             elif len(target_list):
                 raw: str = '\n'.join(target_list)
                 print(raw)
