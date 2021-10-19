@@ -21,13 +21,13 @@ class Line:
         self.dst = name
         self.dst_has_memory_ref = has_memory_ref
 
-    def set_src(self, name: str, has_memory_ref: bool, is_immediate: bool, immediate: int, **other: dict):
+    def set_src(self, name: str, has_memory_ref: bool, is_immediate: bool, **other: dict):
         self.src = name
         self.src_has_memory_ref = has_memory_ref
         self.src_is_immediate = is_immediate
 
         if self.src_is_immediate:
-            self.immediate = immediate
+            self.immediate = other["immediate"]
 
     def set_op(self, name: str, tree: list):
         self.op = name
