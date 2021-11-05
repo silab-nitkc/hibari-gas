@@ -18,7 +18,7 @@ def main():
     with open(args.src, 'r', encoding='utf-8') as f:
         raw = f.read()
 
-    obfuscator: Obfuscator = Obfuscator(raw, ["add", "sub"])
+    obfuscator: Obfuscator = Obfuscator(raw, ["add", "sub", "or", "xor", "and"])
     res = obfuscator.run(MAX_LINE_N=args.n, inst_N=args.l,
                          tl_N=20, use_range_divider=args.rangediv)
 
